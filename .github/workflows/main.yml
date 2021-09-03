@@ -1,0 +1,70 @@
+name: JD_Actions
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron: 5 */2 * * *
+  workflow_dispatch:
+  watch:
+    types: started
+jobs:
+  build:
+    runs-on: Ubuntu-20.04  
+    steps:
+    - name: set_time
+      run: |
+        cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+        date
+    - uses: actions/checkout@v2
+    - name: Install build dependencies
+      run: |
+        sudo npm install -g typescript
+        sudo apt-get install wget
+    - name: down
+      run: |
+        echo "========= 开始清空脚本 ========="
+        shopt -s extglob
+        rm -rf !(README.md|auto)
+        shopt -u extglob
+        echo "========= 开始下载小小的脚本及依赖 ========="
+        git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
+        cp -rf ./Aaron/* ./
+        rm -rf ./Aaron
+        echo "========= 开始下载smiek2221的脚本 ========="
+        wget -N https://raw.githubusercontent.com/smiek2221/scripts/master/gua_MMdou.js
+        wget -N https://raw.githubusercontent.com/smiek2221/scripts/master/gua_wealth_island.js
+        wget -N https://raw.githubusercontent.com/smiek2221/scripts/master/gua_wealth_island_help.js
+        echo "========= 开始下载JDHelloWorld的脚本 ========="
+        git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
+        echo "========= 开始复制依赖 ========="
+        cp -f ./JDHelloWorld/package.json ./
+        cp -f ./JDHelloWorld/*ShareCodes.js ./        
+        #cp -f ./JDHelloWorld/sendNotify.js ./
+        #cp -f ./JDHelloWorld/jdCookie.js ./
+        #cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_health.js} ./
+        echo "========= 开始转换JDHelloWorld的ts脚本 ========="
+        cd ./JDHelloWorld
+        rm *.js
+        sudo npm install
+        tsc *.ts
+        cd ./utils
+        tsc *.ts
+        echo "========= 开始复制JDHelloWorld的脚本 ========="
+        cd ../..
+        awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
+        mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
+        awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*_*.js ./"; print "n" |cmd; }'
+        rm -rf ./JDHelloWorld
+    - name: 'Commit Files'
+      id: commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --quiet && git diff --staged --quiet || git commit -am "$(date +%Y%m%d-%H:%M)"
+    - name: Push Dust
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        branch: master
