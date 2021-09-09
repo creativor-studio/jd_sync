@@ -42,7 +42,8 @@ jobs:
         cp -f ./JDHelloWorld/*ShareCodes.js ./        
         #cp -f ./JDHelloWorld/sendNotify.js ./
         #cp -f ./JDHelloWorld/jdCookie.js ./
-        #cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_health.js} ./
+        #cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_health.js,jd_validate_Worker.js} ./
+        cp -rf ./JDHelloWorld/{jd_validate_Worker.js} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
         rm *.js
@@ -54,6 +55,7 @@ jobs:
         cd ../..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
         mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
+        mv ./JDHelloWorld/jd_joy_reward.js ./JDHelloWorld/jd_joy_rewardh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*_*.js ./"; print "n" |cmd; }'
         rm -rf ./JDHelloWorld
     - name: 'Commit Files'
