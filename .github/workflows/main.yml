@@ -46,6 +46,7 @@ jobs:
         cp -f ./JDHelloWorld/jd_validate_Worker.js ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
+        git checkout 8e1b6e146001c8712648fdc81975a9e53652a973
         rm *.js
         sudo npm install
         tsc *.ts
