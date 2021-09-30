@@ -42,8 +42,7 @@ jobs:
         cp -f ./JDHelloWorld/*ShareCodes.js ./        
         #cp -f ./JDHelloWorld/sendNotify.js ./
         #cp -f ./JDHelloWorld/jdCookie.js ./
-        cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_health.js,jd_validate_Worker.js} ./
-        #cp -f ./JDHelloWorld/jd_validate_Worker.js ./
+        cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_validate_Worker.js} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
         rm *.js
