@@ -25,7 +25,7 @@ jobs:
       run: |
         echo "========= 开始清空脚本 ========="
         shopt -s extglob
-        rm -rf !(README.md|auto)
+        rm -rf !(README.md)
         shopt -u extglob
         echo "========= 开始下载小小的脚本及依赖 ========="
         git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
@@ -45,7 +45,10 @@ jobs:
         cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_validate_Worker.js} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
+        rm jd_joy_reward.ts jd_qq_pasture.ts
+        mv sendNotify.js sendNotify.ts
         rm *.js
+        mv sendNotify.ts sendNotify.js
         sudo npm install
         tsc *.ts
         cd ./utils
