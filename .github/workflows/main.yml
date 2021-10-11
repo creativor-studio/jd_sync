@@ -29,6 +29,7 @@ jobs:
         shopt -u extglob
         echo "========= 开始下载小小的脚本及依赖 ========="
         git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
+        rm ./Aaron/package.json
         cp -rf ./Aaron/* ./
         rm -rf ./Aaron
         echo "========= 开始下载smiek2221的脚本 ========="
@@ -38,7 +39,6 @@ jobs:
         echo "========= 开始下载JDHelloWorld的脚本 ========="
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
-        #cp -f ./JDHelloWorld/package.json ./
         cp -f ./JDHelloWorld/*ShareCodes.js ./
         cp -rf ./JDHelloWorld/{jd_plantBean.js,jd_fruit.js,jd_pet.js,jd_dreamFactory.js,jd_jdfactory.js,jd_sgmh.js,jd_validate_Worker.js} ./
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
