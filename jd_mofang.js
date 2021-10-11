@@ -53,7 +53,7 @@ var cookie = '', res = '', UserName, index;
 var shareCodeSelf = [];
 var DEBUG = false;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, sign, _a, _b, t, signDay, type, _c, _d, proInfo, e_1_1, _e, _f, proInfo, e_2_1, _g, _h, proInfo, e_3_1, _j, _k, proInfo, e_4_1, e_5_1, shareCodeSelf_1, shareCodeSelf_1_1, code_1, e_6_1, code;
+    var cookiesArr, i, sign, _a, _b, t, signDay, type, _c, _d, proInfo, e_1_1, _e, _f, proInfo, e_2_1, _g, _h, proInfo, e_3_1, _j, _k, proInfo, e_4_1, e_5_1, shareCodeSelf_1, shareCodeSelf_1_1, code, e_6_1, code;
     var e_5, _l, e_1, _m, e_2, _o, e_3, _p, e_4, _q, e_6, _r;
     var _s, _t, _u, _v, _w;
     return __generator(this, function (_x) {
@@ -74,7 +74,6 @@ var DEBUG = false;
                 res = _x.sent();
                 sign = res.result.taskConfig.projectId;
                 DEBUG ? console.log(JSON.stringify(res)) : '';
-                console.log('sing:', sign);
                 return [4 /*yield*/, api("functionId=queryInteractiveInfo&body=%7B%22encryptProjectId%22%3A%22" + sign + "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology")];
             case 4:
                 res = _x.sent();
@@ -262,9 +261,9 @@ var DEBUG = false;
                 _x.label = 47;
             case 47:
                 if (!!shareCodeSelf_1_1.done) return [3 /*break*/, 51];
-                code_1 = shareCodeSelf_1_1.value;
-                console.log("\u8D26\u53F71 " + UserName + " \u53BB\u52A9\u529B " + code_1.itemId);
-                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=%7B%22encryptProjectId%22%3A%22" + code_1.encryptProjectId + "%22%2C%22encryptAssignmentId%22%3A%22" + code_1.encryptAssignmentId + "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22itemId%22%3A%22" + code_1.itemId + "%22%2C%22actionType%22%3A%22%22%2C%22completionFlag%22%3A%22%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology")];
+                code = shareCodeSelf_1_1.value;
+                console.log("\u8D26\u53F71 " + UserName + " \u53BB\u52A9\u529B " + code.itemId);
+                return [4 /*yield*/, api("functionId=doInteractiveAssignment&body=%7B%22encryptProjectId%22%3A%22" + code.encryptProjectId + "%22%2C%22encryptAssignmentId%22%3A%22" + code.encryptAssignmentId + "%22%2C%22sourceCode%22%3A%22acexinpin0823%22%2C%22itemId%22%3A%22" + code.itemId + "%22%2C%22actionType%22%3A%22%22%2C%22completionFlag%22%3A%22%22%2C%22ext%22%3A%7B%7D%7D&client=wh5&clientVersion=1.0.0&appid=content_ecology")];
             case 48:
                 res = _x.sent();
                 console.log('助力结果:', res);
@@ -287,6 +286,7 @@ var DEBUG = false;
                 finally { if (e_6) throw e_6.error; }
                 return [7 /*endfinally*/];
             case 54:
+                if (!shareCodeSelf[0]) return [3 /*break*/, 56];
                 cookie = cookiesArr[1];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 code = shareCodeSelf[0];
@@ -295,7 +295,8 @@ var DEBUG = false;
             case 55:
                 res = _x.sent();
                 console.log('助力结果:', res);
-                return [2 /*return*/];
+                _x.label = 56;
+            case 56: return [2 /*return*/];
         }
     });
 }); })();
