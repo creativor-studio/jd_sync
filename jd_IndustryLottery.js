@@ -35,6 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
@@ -45,92 +56,107 @@ dotenv.config();
 var cookie = '', res = '';
 var UserName, index;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, _a, isLogin, nickName, k, _i, _b, t, body, j;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var cookiesArr, i, _a, isLogin, nickName, k, _b, _c, t, body, e_1_1, j;
+    var e_1, _d;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _c.sent();
+                cookiesArr = _e.sent();
                 i = 0;
-                _c.label = 2;
+                _e.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 22];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 26];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.TotalBean)(cookie)];
             case 3:
-                _a = _c.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
+                _a = _e.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
                 if (!isLogin) {
                     notify.sendNotify(__filename.split('/').pop(), "cookie\u5DF2\u5931\u6548\n\u4EAC\u4E1C\u8D26\u53F7" + index + "\uFF1A" + (nickName || UserName));
-                    return [3 /*break*/, 21];
+                    return [3 /*break*/, 25];
                 }
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + (nickName || UserName) + "\n");
                 k = 0;
-                _c.label = 4;
+                _e.label = 4;
             case 4:
-                if (!(k < 10)) return [3 /*break*/, 15];
+                if (!(k < 10)) return [3 /*break*/, 19];
                 return [4 /*yield*/, getTask()];
             case 5:
-                res = _c.sent();
-                _i = 0, _b = res.data.taskConfig;
-                _c.label = 6;
+                res = _e.sent();
+                _e.label = 6;
             case 6:
-                if (!(_i < _b.length)) return [3 /*break*/, 12];
-                t = _b[_i];
-                if (!(t.itemCount !== t.finishCount)) return [3 /*break*/, 11];
+                _e.trys.push([6, 14, 15, 16]);
+                _b = (e_1 = void 0, __values(res.data.taskConfig)), _c = _b.next();
+                _e.label = 7;
+            case 7:
+                if (!!_c.done) return [3 /*break*/, 13];
+                t = _c.value;
+                if (!(t.itemCount !== t.finishCount)) return [3 /*break*/, 12];
                 body = {
                     "configCode": "e1a458713a854e2abb1db2772e540532",
                     "taskType": t.taskType,
                     "itemId": t.taskItem.itemId
                 };
                 return [4 /*yield*/, api('doTask', body)];
-            case 7:
-                res = _c.sent();
+            case 8:
+                res = _e.sent();
                 console.log(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 8:
-                _c.sent();
-                return [4 /*yield*/, api("getReward", body)];
             case 9:
-                res = _c.sent();
+                _e.sent();
+                return [4 /*yield*/, api("getReward", body)];
+            case 10:
+                res = _e.sent();
                 console.log(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(t.viewTime * 1000)];
-            case 10:
-                _c.sent();
-                return [3 /*break*/, 12];
             case 11:
-                _i++;
-                return [3 /*break*/, 6];
-            case 12: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
-            case 13:
-                _c.sent();
-                _c.label = 14;
+                _e.sent();
+                return [3 /*break*/, 13];
+            case 12:
+                _c = _b.next();
+                return [3 /*break*/, 7];
+            case 13: return [3 /*break*/, 16];
             case 14:
+                e_1_1 = _e.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 16];
+            case 15:
+                try {
+                    if (_c && !_c.done && (_d = _b["return"])) _d.call(_b);
+                }
+                finally { if (e_1) throw e_1.error; }
+                return [7 /*endfinally*/];
+            case 16: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+            case 17:
+                _e.sent();
+                _e.label = 18;
+            case 18:
                 k++;
                 return [3 /*break*/, 4];
-            case 15: return [4 /*yield*/, getTask()];
-            case 16:
-                res = _c.sent();
+            case 19: return [4 /*yield*/, getTask()];
+            case 20:
+                res = _e.sent();
                 console.log("\u6709" + res.data.chanceLeft + "\u6B21\u62BD\u5956\u673A\u4F1A");
                 j = 0;
-                _c.label = 17;
-            case 17:
-                if (!(j < res.data.chanceLeft)) return [3 /*break*/, 21];
-                return [4 /*yield*/, join()];
-            case 18:
-                _c.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
-            case 19:
-                _c.sent();
-                _c.label = 20;
-            case 20:
-                j++;
-                return [3 /*break*/, 17];
+                _e.label = 21;
             case 21:
+                if (!(j < res.data.chanceLeft)) return [3 /*break*/, 25];
+                return [4 /*yield*/, join()];
+            case 22:
+                _e.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
+            case 23:
+                _e.sent();
+                _e.label = 24;
+            case 24:
+                j++;
+                return [3 /*break*/, 21];
+            case 25:
                 i++;
                 return [3 /*break*/, 2];
-            case 22: return [2 /*return*/];
+            case 26: return [2 /*return*/];
         }
     });
 }); })();

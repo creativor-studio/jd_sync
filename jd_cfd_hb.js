@@ -38,42 +38,63 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', cookiesArr, res = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var PrettyTable, pt, title, datas, _i, _a, t;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var PrettyTable, pt, title, datas, _a, _b, t;
+    var e_1, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requestAlgo)()];
             case 1:
-                _b.sent();
+                _d.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
-                cookiesArr = _b.sent();
+                cookiesArr = _d.sent();
                 cookie = cookiesArr[0];
                 return [4 /*yield*/, api('user/ExchangeState', '_cfd_t,bizCode,dwEnv,dwType,ptag,source,strZone', { dwType: '2' })];
             case 3:
-                res = _b.sent();
-                _b.label = 4;
+                res = _d.sent();
+                _d.label = 4;
             case 4:
                 if (!1) return [3 /*break*/, 8];
                 if (!(new Date().getSeconds() < 61)) return [3 /*break*/, 5];
                 return [3 /*break*/, 8];
             case 5: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 6:
-                _b.sent();
-                _b.label = 7;
+                _d.sent();
+                _d.label = 7;
             case 7: return [3 /*break*/, 4];
             case 8:
                 PrettyTable = require('prettytable');
                 pt = new PrettyTable();
                 title = ['Value', 'Status', 'Stock'];
                 datas = [];
-                for (_i = 0, _a = res.hongbao; _i < _a.length; _i++) {
-                    t = _a[_i];
-                    datas.push([t.strPrizeName.replace('元', ''), t.dwState ? 'True' : 'False', t.dwStockNum]);
+                try {
+                    for (_a = __values(res.hongbao), _b = _a.next(); !_b.done; _b = _a.next()) {
+                        t = _b.value;
+                        datas.push([t.strPrizeName.replace('元', ''), t.dwState ? 'True' : 'False', t.dwStockNum]);
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                    }
+                    finally { if (e_1) throw e_1.error; }
                 }
                 pt.create(title, datas);
                 pt.print();

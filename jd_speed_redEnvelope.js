@@ -44,6 +44,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
@@ -53,14 +64,15 @@ dotenv.config();
 var UserName, index, cookie = '', cookiesArr = [], res = '';
 var shareCodes = [];
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var i, _a, isLogin, nickName, i, _i, shareCodes_1, share;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var i, _a, isLogin, nickName, i, shareCodes_1, shareCodes_1_1, share, e_1_1;
+    var e_1, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0: return [4 /*yield*/, requireConfig()];
             case 1:
-                _b.sent();
+                _c.sent();
                 i = 0;
-                _b.label = 2;
+                _c.label = 2;
             case 2:
                 if (!(i < cookiesArr.length)) return [3 /*break*/, 7];
                 cookie = cookiesArr[i];
@@ -68,7 +80,7 @@ var shareCodes = [];
                 index = i + 1;
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.TotalBean)(cookie)];
             case 3:
-                _a = _b.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
+                _a = _c.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
                 if (!isLogin) {
                     notify.sendNotify(__filename.split('/').pop(), "cookie\u5DF2\u5931\u6548\n\u4EAC\u4E1C\u8D26\u53F7" + index + "\uFF1A" + (nickName || UserName));
                     return [3 /*break*/, 6];
@@ -76,40 +88,54 @@ var shareCodes = [];
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + (nickName || UserName) + "\n");
                 return [4 /*yield*/, makeShareCodes()];
             case 4:
-                _b.sent();
+                _c.sent();
                 return [4 /*yield*/, wait(2000)];
             case 5:
-                _b.sent();
-                _b.label = 6;
+                _c.sent();
+                _c.label = 6;
             case 6:
                 i++;
                 return [3 /*break*/, 2];
             case 7:
                 console.log(shareCodes);
                 i = 0;
-                _b.label = 8;
+                _c.label = 8;
             case 8:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 14];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 18];
                 cookie = cookiesArr[i];
-                _i = 0, shareCodes_1 = shareCodes;
-                _b.label = 9;
+                _c.label = 9;
             case 9:
-                if (!(_i < shareCodes_1.length)) return [3 /*break*/, 13];
-                share = shareCodes_1[_i];
-                return [4 /*yield*/, help(share.redEnvelopeId, share.markedPin)];
+                _c.trys.push([9, 15, 16, 17]);
+                shareCodes_1 = (e_1 = void 0, __values(shareCodes)), shareCodes_1_1 = shareCodes_1.next();
+                _c.label = 10;
             case 10:
-                _b.sent();
-                return [4 /*yield*/, wait(2000)];
+                if (!!shareCodes_1_1.done) return [3 /*break*/, 14];
+                share = shareCodes_1_1.value;
+                return [4 /*yield*/, help(share.redEnvelopeId, share.markedPin)];
             case 11:
-                _b.sent();
-                _b.label = 12;
+                _c.sent();
+                return [4 /*yield*/, wait(2000)];
             case 12:
-                _i++;
-                return [3 /*break*/, 9];
+                _c.sent();
+                _c.label = 13;
             case 13:
+                shareCodes_1_1 = shareCodes_1.next();
+                return [3 /*break*/, 10];
+            case 14: return [3 /*break*/, 17];
+            case 15:
+                e_1_1 = _c.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 17];
+            case 16:
+                try {
+                    if (shareCodes_1_1 && !shareCodes_1_1.done && (_b = shareCodes_1["return"])) _b.call(shareCodes_1);
+                }
+                finally { if (e_1) throw e_1.error; }
+                return [7 /*endfinally*/];
+            case 17:
                 i++;
                 return [3 /*break*/, 8];
-            case 14: return [2 /*return*/];
+            case 18: return [2 /*return*/];
         }
     });
 }); })();

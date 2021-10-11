@@ -39,6 +39,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
@@ -46,15 +57,16 @@ var sendNotify_1 = require("./sendNotify");
 var fs_1 = require("fs");
 var cookie = '', res = '', UserName, message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, exist, current, _i, _a, t;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var cookiesArr, exist, current, _a, _b, t;
+    var e_1, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requestAlgo)(10001)];
             case 1:
-                _b.sent();
+                _d.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
-                cookiesArr = _b.sent();
+                cookiesArr = _d.sent();
                 cookie = cookiesArr[0];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F71\u3011" + UserName + "\n");
@@ -67,15 +79,24 @@ var cookie = '', res = '', UserName, message = '';
                 }
                 return [4 /*yield*/, api()];
             case 3:
-                res = _b.sent();
+                res = _d.sent();
                 current = [];
-                for (_i = 0, _a = res.data.commodityList; _i < _a.length; _i++) {
-                    t = _a[_i];
-                    console.log(t.name);
-                    current.push(t.name);
-                    if (!exist.includes(t.name)) {
-                        message += t.name + '\n';
+                try {
+                    for (_a = __values(res.data.commodityList), _b = _a.next(); !_b.done; _b = _a.next()) {
+                        t = _b.value;
+                        console.log(t.name);
+                        current.push(t.name);
+                        if (!exist.includes(t.name)) {
+                            message += t.name + '\n';
+                        }
                     }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                    }
+                    finally { if (e_1) throw e_1.error; }
                 }
                 (0, fs_1.writeFileSync)('./jxgc_stock.json', JSON.stringify(current));
                 if (message) {

@@ -39,6 +39,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var date_fns_1 = require("date-fns");
 var axios_1 = require("axios");
@@ -50,70 +61,85 @@ dotenv.config();
 var appId = 10028, fingerprint, token = '', enCryptMethodJD;
 var cookie = '', res = '', UserName, index;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, _i, _a, b, token_1, money, h;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var cookiesArr, i, _a, _b, b, e_1_1, token_1, money, h;
+    var e_1, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, requestAlgo()];
             case 1:
-                _b.sent();
+                _d.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
-                cookiesArr = _b.sent();
+                cookiesArr = _d.sent();
                 i = 0;
-                _b.label = 3;
+                _d.label = 3;
             case 3:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 19];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 23];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
-                _b.label = 4;
+                _d.label = 4;
             case 4:
                 if (!1) return [3 /*break*/, 8];
                 if (!(new Date().getSeconds() < 30)) return [3 /*break*/, 5];
                 return [3 /*break*/, 8];
             case 5: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(100)];
             case 6:
-                _b.sent();
-                _b.label = 7;
+                _d.sent();
+                _d.label = 7;
             case 7: return [3 /*break*/, 4];
             case 8:
-                if (!((new Date().getHours() === 0 || new Date().getHours() === 12) && new Date().getMinutes() === 0)) return [3 /*break*/, 13];
-                _i = 0, _a = ['food', 'fun', 'shop', 'sea'];
-                _b.label = 9;
+                if (!((new Date().getHours() === 0 || new Date().getHours() === 12) && new Date().getMinutes() === 0)) return [3 /*break*/, 17];
+                _d.label = 9;
             case 9:
-                if (!(_i < _a.length)) return [3 /*break*/, 13];
-                b = _a[_i];
-                return [4 /*yield*/, api('user/GetBuildInfo', '_cfd_t,bizCode,dwEnv,dwType,ptag,source,strBuildIndex,strZone', { strBuildIndex: b })];
+                _d.trys.push([9, 15, 16, 17]);
+                _a = (e_1 = void 0, __values(['food', 'fun', 'shop', 'sea'])), _b = _a.next();
+                _d.label = 10;
             case 10:
-                res = _b.sent();
-                if (!(res.dwCanLvlUp === 1)) return [3 /*break*/, 12];
-                return [4 /*yield*/, api('user/BuildLvlUp', '_cfd_t,bizCode,ddwCostCoin,dwEnv,ptag,source,strBuildIndex,strZone', { ddwCostCoin: res.ddwNextLvlCostCoin, strBuildIndex: b })];
+                if (!!_b.done) return [3 /*break*/, 14];
+                b = _b.value;
+                return [4 /*yield*/, api('user/GetBuildInfo', '_cfd_t,bizCode,dwEnv,dwType,ptag,source,strBuildIndex,strZone', { strBuildIndex: b })];
             case 11:
-                res = _b.sent();
+                res = _d.sent();
+                if (!(res.dwCanLvlUp === 1)) return [3 /*break*/, 13];
+                return [4 /*yield*/, api('user/BuildLvlUp', '_cfd_t,bizCode,ddwCostCoin,dwEnv,ptag,source,strBuildIndex,strZone', { ddwCostCoin: res.ddwNextLvlCostCoin, strBuildIndex: b })];
+            case 12:
+                res = _d.sent();
                 if (res.iRet === 0) {
                     console.log(b + "\u5347\u7EA7\u6210\u529F");
-                    return [3 /*break*/, 13];
+                    return [3 /*break*/, 14];
                 }
-                _b.label = 12;
-            case 12:
-                _i++;
-                return [3 /*break*/, 9];
+                _d.label = 13;
             case 13:
+                _b = _a.next();
+                return [3 /*break*/, 10];
+            case 14: return [3 /*break*/, 17];
+            case 15:
+                e_1_1 = _d.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 17];
+            case 16:
+                try {
+                    if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                }
+                finally { if (e_1) throw e_1.error; }
+                return [7 /*endfinally*/];
+            case 17:
                 // 提现
                 console.log('解锁：', (0, date_fns_1.format)(new Date(), 'hh:mm:ss:SSS'));
                 return [4 /*yield*/, getJxToken(cookie)];
-            case 14:
-                token_1 = _b.sent();
+            case 18:
+                token_1 = _d.sent();
                 return [4 /*yield*/, api('user/CashOutQuali', '_cfd_t,bizCode,dwEnv,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strZone', { strPgUUNum: token_1.strPgUUNum, strPgtimestamp: token_1.strPgtimestamp, strPhoneID: token_1.strPhoneID })];
-            case 15:
-                res = _b.sent();
+            case 19:
+                res = _d.sent();
                 console.log('资格:', res);
                 if (res.iRet === 2036)
-                    return [3 /*break*/, 19];
+                    return [3 /*break*/, 23];
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
-            case 16:
-                _b.sent();
+            case 20:
+                _d.sent();
                 console.log('提现：', (0, date_fns_1.format)(new Date(), 'hh:mm:ss:SSS'));
                 money = void 0, h = new Date().getHours();
                 if (h === 0)
@@ -125,14 +151,14 @@ var cookie = '', res = '', UserName, index;
                 money = process.env.CFD_CASHOUT_MONEY ? parseFloat(process.env.CFD_CASHOUT_MONEY) * 100 : money;
                 console.log('本次计划提现：', money / 100);
                 return [4 /*yield*/, api('user/CashOut', '_cfd_t,bizCode,ddwMoney,ddwPaperMoney,dwEnv,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strZone', { ddwMoney: money, ddwPaperMoney: money * 10, strPgUUNum: token_1.strPgUUNum, strPgtimestamp: token_1.strPgtimestamp, strPhoneID: token_1.strPhoneID })];
-            case 17:
-                res = _b.sent();
+            case 21:
+                res = _d.sent();
                 console.log('提现:', res);
-                _b.label = 18;
-            case 18:
+                _d.label = 22;
+            case 22:
                 i++;
                 return [3 /*break*/, 3];
-            case 19: return [2 /*return*/];
+            case 23: return [2 /*return*/];
         }
     });
 }); })();

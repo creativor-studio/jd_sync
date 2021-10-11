@@ -39,6 +39,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
 exports.__esModule = true;
 var axios_1 = require("axios");
 var dotenv = require("dotenv");
@@ -46,85 +57,100 @@ var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 dotenv.config();
 var cookie = '', res = '', UserName, index;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, j, _i, _a, t, e_1;
-    return __generator(this, function (_b) {
-        switch (_b.label) {
+    var cookiesArr, i, j, _a, _b, t, e_1_1, e_2;
+    var e_1, _c;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _b.sent();
+                cookiesArr = _d.sent();
                 i = 0;
-                _b.label = 2;
+                _d.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 20];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 24];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
                 j = 0;
-                _b.label = 3;
+                _d.label = 3;
             case 3:
-                if (!(j < 4)) return [3 /*break*/, 19];
+                if (!(j < 4)) return [3 /*break*/, 23];
                 console.log("Round:" + (j + 1));
                 return [4 /*yield*/, api('beanTaskList', { "viewChannel": "AppHome" })];
             case 4:
-                res = _b.sent();
-                _b.label = 5;
+                res = _d.sent();
+                _d.label = 5;
             case 5:
-                _b.trys.push([5, 15, , 16]);
-                _i = 0, _a = res.data.taskInfos;
-                _b.label = 6;
+                _d.trys.push([5, 19, , 20]);
+                _d.label = 6;
             case 6:
-                if (!(_i < _a.length)) return [3 /*break*/, 14];
-                t = _a[_i];
-                if (!(t.status === 1)) return [3 /*break*/, 13];
+                _d.trys.push([6, 16, 17, 18]);
+                _a = (e_1 = void 0, __values(res.data.taskInfos)), _b = _a.next();
+                _d.label = 7;
+            case 7:
+                if (!!_b.done) return [3 /*break*/, 15];
+                t = _b.value;
+                if (!(t.status === 1)) return [3 /*break*/, 14];
                 console.log(t.taskName);
                 return [4 /*yield*/, api('beanDoTask', {
                         "actionType": t.taskType === 3 ? 0 : 1,
                         "taskToken": t.subTaskVOS[0].taskToken
                     })];
-            case 7:
-                res = _b.sent();
+            case 8:
+                res = _d.sent();
                 if (res.data.bizMsg)
                     console.log(res.data.bizMsg);
                 else {
                     console.log(res);
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 8:
-                _b.sent();
-                if (!(t.taskType !== 3)) return [3 /*break*/, 11];
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1500)];
             case 9:
-                _b.sent();
-                return [4 /*yield*/, api('beanDoTask', { "actionType": 0, "taskToken": t.subTaskVOS[0].taskToken })];
+                _d.sent();
+                if (!(t.taskType !== 3)) return [3 /*break*/, 12];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1500)];
             case 10:
-                res = _b.sent();
+                _d.sent();
+                return [4 /*yield*/, api('beanDoTask', { "actionType": 0, "taskToken": t.subTaskVOS[0].taskToken })];
+            case 11:
+                res = _d.sent();
                 if (res.data.bizMsg)
                     console.log(res.data.bizMsg);
-                _b.label = 11;
-            case 11: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 12:
-                _b.sent();
-                _b.label = 13;
+                _d.label = 12;
+            case 12: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 13:
-                _i++;
-                return [3 /*break*/, 6];
-            case 14: return [3 /*break*/, 16];
-            case 15:
-                e_1 = _b.sent();
-                console.log('Error!');
-                return [3 /*break*/, 16];
-            case 16: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+                _d.sent();
+                _d.label = 14;
+            case 14:
+                _b = _a.next();
+                return [3 /*break*/, 7];
+            case 15: return [3 /*break*/, 18];
+            case 16:
+                e_1_1 = _d.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 18];
             case 17:
-                _b.sent();
-                _b.label = 18;
-            case 18:
+                try {
+                    if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
+                }
+                finally { if (e_1) throw e_1.error; }
+                return [7 /*endfinally*/];
+            case 18: return [3 /*break*/, 20];
+            case 19:
+                e_2 = _d.sent();
+                console.log('Error!');
+                return [3 /*break*/, 20];
+            case 20: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+            case 21:
+                _d.sent();
+                _d.label = 22;
+            case 22:
                 j++;
                 return [3 /*break*/, 3];
-            case 19:
+            case 23:
                 i++;
                 return [3 /*break*/, 2];
-            case 20: return [2 /*return*/];
+            case 24: return [2 /*return*/];
         }
     });
 }); })();
