@@ -39,7 +39,6 @@ jobs:
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
         cp -f ./JDHelloWorld/package.json ./
-        sed -i '/http-server/a\    "jsdom": "^17.0.0"' ./package.json
         cp -f ./JDHelloWorld/*ShareCodes.js ./        
         #cp -f ./JDHelloWorld/sendNotify.js ./
         #cp -f ./JDHelloWorld/jdCookie.js ./
