@@ -102,6 +102,10 @@ var cookie = '', res = '', UserName;
                 try {
                     for (_a = __values(res.data.goodslist), _b = _a.next(); !_b.done; _b = _a.next()) {
                         good = _b.value;
+                        if (!Object.keys(exist).includes(good.prizepool)) {
+                            items += good.prizepool + ',';
+                            exist[good.prizepool] = {
+                                id: good.prizepool,
                                 egg: good.neednum
                             };
                         }
