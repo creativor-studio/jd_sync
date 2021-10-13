@@ -61,7 +61,7 @@ dotenv.config();
                 lastMsg = process.env.ImportantNotify || '';
                 latestMsg = '2021-10-04  自爆了，重新提交';
                 if (!(lastMsg !== latestMsg)) return [3 /*break*/, 2];
-                return [4 /*yield*/, (0, sendNotify_1.sendNotify)("@所有人", latestMsg)];
+                return [4 /*yield*/, (0, notify.sendNotify)("@所有人", latestMsg)];
             case 1:
                 _a.sent();
                 if (env.indexOf('ImportantNotify') > -1)
