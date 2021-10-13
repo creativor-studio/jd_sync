@@ -48,6 +48,7 @@ jobs:
         rm jd_joy_reward.ts jd_qq_pasture.ts
         sudo npm install
         tsc
+        sed -i '/includes/,+3d' *.js
         echo "========= 开始复制JDHelloWorld的脚本 ========="
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
