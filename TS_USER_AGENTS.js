@@ -63,7 +63,7 @@ var __read = (this && this.__read) || function (o, n) {
     return ar;
 };
 exports.__esModule = true;
-exports.exceptCookie = exports.h5st = exports.getJxToken = exports.decrypt = exports.requestAlgo = exports.getRandomNumberByRange = exports.wait = exports.requireConfig = exports.getFarmShareCode = exports.getBeanShareCode = exports.TotalBean = void 0;
+exports.randomString = exports.exceptCookie = exports.h5st = exports.getJxToken = exports.decrypt = exports.requestAlgo = exports.getRandomNumberByRange = exports.wait = exports.requireConfig = exports.getFarmShareCode = exports.getBeanShareCode = exports.TotalBean = void 0;
 var axios_1 = require("axios");
 var ts_md5_1 = require("ts-md5");
 var date_fns_1 = require("date-fns");
@@ -333,7 +333,7 @@ function exceptCookie(filename) {
     var except = [];
     try {
         (0, fs_1.accessSync)('./utils/exceptCookie.json');
-        except = JSON.parse((0, fs_1.readFileSync)('./utils/exceptCookie.json').toString() || '{}')[filename];
+        except = JSON.parse((0, fs_1.readFileSync)('./utils/exceptCookie.json').toString() || '{}')[filename] || [];
     }
     catch (e) {
         except = [];
@@ -342,4 +342,12 @@ function exceptCookie(filename) {
     return except;
 }
 exports.exceptCookie = exceptCookie;
+function randomString(e, word) {
+    e = e || 32;
+    var t = word === 26 ? "012345678abcdefghijklmnopqrstuvwxyz" : "0123456789abcdef", a = t.length, n = "";
+    for (var i = 0; i < e; i++)
+        n += t.charAt(Math.floor(Math.random() * a));
+    return n;
+}
+exports.randomString = randomString;
 exports["default"] = USER_AGENT;

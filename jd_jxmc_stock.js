@@ -55,7 +55,7 @@ exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var fs_1 = require("fs");
-var notify = require('./sendNotify'), jxmcToken = require('./utils/jd_jxmc.js').getToken;
+var notify = require('./sendNotify'), jxmcToken = require('./utils/jd_jxmc.js').token;
 var cookie = '', res = '', UserName;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, exist, items, message, token, _a, _b, good, allItems, arr, result, i, len, result_1, result_1_1, group, group_1, group_1_1, id, _c, _d, t, e_1_1, _e, _f, j;
