@@ -89,10 +89,6 @@ var target = process.env.CFD_STOCK
                         name_1 = j.strPrizeName.trim();
                         stock = j.dwStockNum;
                         console.log(name_1, stock);
-                        if (target.includes(name_1) && stock !== 0) {
-                            notify.sendNotify("\u8D22\u5BCC\u5C9B\u8865\u8D27\n\n" + name_1, "\u5E93\u5B58\uFF1A" + stock, '', '\n\n你好，世界！');
-                        }
-                    }
                 }
                 catch (e_1_1) { e_1 = { error: e_1_1 }; }
                 finally {
@@ -114,10 +110,6 @@ function api(fn, stk, params) {
             switch (_a.label) {
                 case 0:
                     url = "https://m.jingxi.com/jxbfd/" + fn + "?strZone=jxbfd&bizCode=jxbfd&source=jxbfd&dwEnv=7&_cfd_t=" + Date.now() + "&ptag=&_ste=1&_=" + Date.now() + "&sceneval=2&_stk=" + encodeURIComponent(stk);
-                    if (['GetUserTaskStatusList', 'Award', 'DoTask'].includes(fn)) {
-                        console.log('api2');
-                        url = "https://m.jingxi.com/newtasksys/newtasksys_front/" + fn + "?strZone=jxbfd&bizCode=jxbfddch&source=jxbfd&dwEnv=7&_cfd_t=" + Date.now() + "&ptag=&_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2";
-                    }
                     if (Object.keys(params).length !== 0) {
                         key = void 0;
                         for (key in params) {

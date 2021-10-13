@@ -81,10 +81,6 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
-                if (except.includes(encodeURIComponent(UserName))) {
-                    console.log('已设置跳过');
-                    return [3 /*break*/, 5];
-                }
                 message = '';
                 return [4 /*yield*/, getOrderList()];
             case 3:

@@ -86,10 +86,6 @@ var cookie = '', res = '', UserName, message = '';
                         t = _b.value;
                         console.log(t.name);
                         current.push(t.name);
-                        if (!exist.includes(t.name)) {
-                            message += t.name + '\n';
-                        }
-                    }
                 }
                 catch (e_1_1) { e_1 = { error: e_1_1 }; }
                 finally {
