@@ -46,6 +46,7 @@ jobs:
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
         sed -i 's#string\[\]#any#g' ./jd_qq_pasture.ts
+        sed -i 's#let lkt#let lkt: any#g' ./jd_joy_reward.ts
         rm jd_joy_reward.ts
         sudo npm install
         tsc
@@ -55,7 +56,7 @@ jobs:
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
         mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
-        #mv ./JDHelloWorld/jd_joy_reward.js ./JDHelloWorld/jd_joy_rewardh.js
+        mv ./JDHelloWorld/jd_joy_reward.js ./JDHelloWorld/jd_joy_rewardh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*_*.js ./"; print "n" |cmd; }'
         rm -rf ./JDHelloWorld
     - name: 'Commit Files'
