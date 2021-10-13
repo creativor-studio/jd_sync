@@ -49,6 +49,7 @@ jobs:
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
+        sed -i 's/sendNotify_1.sendNotify/notify.sendNotify/g' *.js
         echo "========= 开始复制JDHelloWorld的脚本 ========="
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
