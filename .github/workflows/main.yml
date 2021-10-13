@@ -45,7 +45,8 @@ jobs:
         cd ./JDHelloWorld
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
-        rm jd_joy_reward.ts jd_qq_pasture.ts
+        sed -i 's#string\[\]#any#g' *.ts
+        #rm jd_joy_reward.ts jd_qq_pasture.ts
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
