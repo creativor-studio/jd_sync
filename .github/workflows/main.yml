@@ -47,7 +47,6 @@ jobs:
         rm `ls *.js|egrep -v sendNotify.js`
         sed -i 's#string\[\]#any#g' ./jd_qq_pasture.ts
         sed -i 's#let lkt#let lkt: any#g' ./jd_joy_reward.ts
-        rm jd_joy_reward.ts
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
