@@ -45,7 +45,7 @@ jobs:
         cd ./JDHelloWorld
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
-        sed -i 's#string\[\]#any#g' ./jd_qq_pasture.ts
+        sed -i 's#setCookie: string\[\]#setCookie: any#g' ./jd_qq_pasture.ts
         sed -i 's#let lkt#let lkt: any#g' ./jd_joy_reward.ts
         sudo npm install
         tsc
