@@ -35,121 +35,114 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __values = (this && this.__values) || function(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-};
 exports.__esModule = true;
-/**
- * 注意：
- * 0～15秒才会进行兑换
- * 16～59秒会进入死循环等待
- */
 var axios_1 = require("axios");
+var ts_md5_1 = require("ts-md5");
 var date_fns_1 = require("date-fns");
+var sendNotify_1 = require("./sendNotify");
+var validate_single_1 = require("./utils/validate_single");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var fs = require("fs");
-var notify = require('./sendNotify'), md5 = require('md5');
-var cookie = '', validate = '', UserName, index;
-var target = process.env.JD_JOY_REWARD_NAME ? parseInt(process.env.JD_JOY_REWARD_NAME) : 500;
+var cookie, tasks, UserName, validate = '', message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var validate_arr, cookiesArr, i, _a, isLogin, nickName, tasks, h, config, config_1, config_1_1, bean, e_1_1;
-    var e_1, _b;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var j, h, config, _i, config_1, bean, e_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
-                validate_arr = fs.readFileSync('./validate.txt', 'utf-8');
-                if (validate_arr.indexOf('\n')) {
-                    validate_arr = validate_arr.split('\n');
-                    validate_arr.pop();
-                }
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
+                if (!process.argv[2]) return [3 /*break*/, 15];
+                cookie = unescape(process.argv[2]);
+                if (!!validate) return [3 /*break*/, 2];
+                return [4 /*yield*/, getValidate()];
             case 1:
-                cookiesArr = _c.sent();
-                i = 0;
-                _c.label = 2;
+                validate = _a.sent();
+                console.log('validate:', validate);
+                _a.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 13];
-                cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                index = i + 1;
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.TotalBean)(cookie)];
+                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7\u3011" + UserName + "\n");
+                j = 0;
+                _a.label = 3;
             case 3:
-                _a = _c.sent(), isLogin = _a.isLogin, nickName = _a.nickName;
-                if (!isLogin) {
-                    notify.sendNotify(__filename.split('/').pop(), "cookie\u5DF2\u5931\u6548\n\u4EAC\u4E1C\u8D26\u53F7" + index + "\uFF1A" + (nickName || UserName));
-                    return [3 /*break*/, 12];
-                }
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + (nickName || UserName) + "\n");
-                if (i < validate_arr.length)
-                    validate = validate_arr[i];
-                else {
-                    console.log('预存验证码不够用，退出！');
-                    return [3 /*break*/, 13];
-                }
+                if (!(j < 10)) return [3 /*break*/, 7];
+                console.log('init...');
                 return [4 /*yield*/, init()];
             case 4:
-                tasks = _c.sent();
-                h = new Date().getHours();
+                tasks = _a.sent();
+                if (tasks.data)
+                    return [3 /*break*/, 7];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(200)];
+            case 5:
+                _a.sent();
+                _a.label = 6;
+            case 6:
+                j++;
+                return [3 /*break*/, 3];
+            case 7:
+                h = new Date(tasks['currentTime']).getHours();
                 config = void 0;
+                _a.label = 8;
+            case 8:
+                _a.trys.push([8, 13, , 14]);
                 if (h >= 0 && h < 8)
                     config = tasks.data['beanConfigs0'];
                 if (h >= 8 && h < 16)
                     config = tasks.data['beanConfigs8'];
                 if (h >= 16 && h < 24)
                     config = tasks.data['beanConfigs16'];
-                _c.label = 5;
-            case 5:
-                _c.trys.push([5, 10, 11, 12]);
-                config_1 = (e_1 = void 0, __values(config)), config_1_1 = config_1.next();
-                _c.label = 6;
-            case 6:
-                if (!!config_1_1.done) return [3 /*break*/, 9];
-                bean = config_1_1.value;
+                _i = 0, config_1 = config;
+                _a.label = 9;
+            case 9:
+                if (!(_i < config_1.length)) return [3 /*break*/, 12];
+                bean = config_1[_i];
                 console.log(bean.id, bean.giftName, bean.leftStock);
-                if (!(bean.giftValue === target)) return [3 /*break*/, 8];
+                if (!(bean.giftValue === 500)) return [3 /*break*/, 11];
                 return [4 /*yield*/, exchange(bean.id)];
-            case 7:
-                _c.sent();
-                _c.label = 8;
-            case 8:
-                config_1_1 = config_1.next();
-                return [3 /*break*/, 6];
-            case 9: return [3 /*break*/, 12];
             case 10:
-                e_1_1 = _c.sent();
-                e_1 = { error: e_1_1 };
-                return [3 /*break*/, 12];
+                _a.sent();
+                _a.label = 11;
             case 11:
-                try {
-                    if (config_1_1 && !config_1_1.done && (_b = config_1["return"])) _b.call(config_1);
-                }
-                finally { if (e_1) throw e_1.error; }
-                return [7 /*endfinally*/];
-            case 12:
-                i++;
-                return [3 /*break*/, 2];
-            case 13: return [2 /*return*/];
+                _i++;
+                return [3 /*break*/, 9];
+            case 12: return [3 /*break*/, 14];
+            case 13:
+                e_1 = _a.sent();
+                console.log('beanConfigs Error');
+                return [3 /*break*/, 14];
+            case 14: return [3 /*break*/, 16];
+            case 15:
+                console.log('未收到Cookie');
+                _a.label = 16;
+            case 16:
+                if (!message) return [3 /*break*/, 18];
+                return [4 /*yield*/, (0, sendNotify_1.sendNotify)('宠汪汪500', message)];
+            case 17:
+                _a.sent();
+                _a.label = 18;
+            case 18: return [2 /*return*/];
         }
     });
 }); })();
+function getValidate() {
+    return __awaiter(this, void 0, void 0, function () {
+        var v;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, new validate_single_1.JDJRValidator().run()];
+                case 1:
+                    v = _a.sent();
+                    return [2 /*return*/, v.validate];
+            }
+        });
+    });
+}
 function init() {
-    var _this = this;
-    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(this, void 0, void 0, function () {
         var lkt, lks, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    lkt = new Date().getTime();
-                    lks = md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString();
-                    return [4 /*yield*/, axios_1["default"].get("https://jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5&invokeKey=RtKLB8euDo7KwsO0&validate=" + validate, {
+                    lkt = new Date().getTime().toString();
+                    lks = ts_md5_1.Md5.hashStr('' + 'JL1VTNRadM68cIMQ' + lkt);
+                    return [4 /*yield*/, axios_1["default"].get("https://jdjoy.jd.com/common/gift/getBeanConfigs?reqSource=h5&invokeKey=JL1VTNRadM68cIMQ&validate=" + validate, {
                             headers: {
                                 'lkt': lkt,
                                 'lks': lks,
@@ -163,21 +156,19 @@ function init() {
                         })];
                 case 1:
                     data = (_a.sent()).data;
-                    resolve(data);
-                    return [2 /*return*/];
+                    return [2 /*return*/, data];
             }
         });
-    }); });
+    });
 }
 function exchange(beanId) {
-    var _this = this;
-    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(this, void 0, void 0, function () {
         var lkt, lks, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     if (!1) return [3 /*break*/, 4];
-                    if (!(new Date().getSeconds() < 15)) return [3 /*break*/, 1];
+                    if (!(new Date().getSeconds() < 50)) return [3 /*break*/, 1];
                     return [3 /*break*/, 4];
                 case 1: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(100)];
                 case 2:
@@ -185,12 +176,12 @@ function exchange(beanId) {
                     _a.label = 3;
                 case 3: return [3 /*break*/, 0];
                 case 4:
-                    console.log('exchange()', (0, date_fns_1.format)(new Date(), 'hh:mm:ss:SSS'));
                     lkt = new Date().getTime();
-                    lks = md5('' + 'RtKLB8euDo7KwsO0' + lkt).toString();
-                    return [4 /*yield*/, axios_1["default"].post("https://jdjoy.jd.com/common/gift/new/exchange?reqSource=h5&invokeKey=RtKLB8euDo7KwsO0&validate=" + validate, JSON.stringify({ "buyParam": { "orderSource": 'pet', "saleInfoId": beanId }, "deviceInfo": {} }), {
+                    console.log('exchange()', (0, date_fns_1.format)(lkt, 'hh:mm:ss:SSS'));
+                    lks = ts_md5_1.Md5.hashStr('' + 'JL1VTNRadM68cIMQ' + lkt);
+                    return [4 /*yield*/, axios_1["default"].post("https://jdjoy.jd.com/common/gift/new/exchange?reqSource=h5&invokeKey=JL1VTNRadM68cIMQ&validate=" + validate, JSON.stringify({ "buyParam": { "orderSource": 'pet', "saleInfoId": beanId }, "deviceInfo": {} }), {
                             headers: {
-                                'lkt': lkt,
+                                'lkt': lkt.toString(),
                                 'lks': lks,
                                 "Host": "jdjoy.jd.com",
                                 "Accept-Language": "zh-cn",
@@ -204,9 +195,11 @@ function exchange(beanId) {
                 case 5:
                     data = (_a.sent()).data;
                     console.log(data);
-                    resolve();
+                    if (data.errorCode === 'buy_success') {
+                        message += UserName + '  500 Yes!\n';
+                    }
                     return [2 /*return*/];
             }
         });
-    }); });
+    });
 }
