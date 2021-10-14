@@ -235,7 +235,7 @@ function task() {
         var e_2, _c;
         return __generator(this, function (_d) {
             switch (_d.label) {
-                case 0: return [4 /*yield*/, api('GetUserTaskStatusList', '_time,bizCode,source')];
+                case 0: return [4 /*yield*/, api('GetUserTaskStatusList', '_time,bizCode,showAreaTaskFlag,source', { showAreaTaskFlag: 1, bizCode: 'dream_factory' })];
                 case 1:
                     res = _d.sent();
                     console.log('GetUserTaskStatusList: 刷新任务列表');
@@ -253,7 +253,7 @@ function task() {
                     if (!(t.awardStatus === 2)) return [3 /*break*/, 13];
                     if (!(t.completedTimes >= t.targetTimes)) return [3 /*break*/, 8];
                     console.log('可领奖:', t.taskName);
-                    return [4 /*yield*/, api('Award', '_time,bizCode,source,taskId', { taskId: t.taskId })];
+                    return [4 /*yield*/, api('Award', '_time,bizCode,source,taskId', { taskId: t.taskId, bizCode: t.bizCode })];
                 case 5:
                     res = _d.sent();
                     if (!(res.ret === 0)) return [3 /*break*/, 7];
@@ -268,7 +268,7 @@ function task() {
                 case 8:
                     if (!(t.dateType === 2 && t.completedTimes < t.targetTimes && [2, 6, 9].indexOf(t.taskType) > -1)) return [3 /*break*/, 13];
                     console.log('任务开始:', t.taskName);
-                    return [4 /*yield*/, api('DoTask', '_time,bizCode,configExtra,source,taskId', { configExtra: '', taskId: t.taskId })];
+                    return [4 /*yield*/, api('DoTask', '_time,bizCode,configExtra,source,taskId', { configExtra: '', taskId: t.taskId, bizCode: t.bizCode })];
                 case 9:
                     res = _d.sent();
                     return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
@@ -307,7 +307,7 @@ function api(fn, stk, params) {
     return new Promise(function (resolve, reject) {
         var url = '';
         if (['GetUserTaskStatusList', 'DoTask', 'Award'].indexOf(fn) > -1)
-            url = "https://m.jingxi.com/newtasksys/newtasksys_front/" + fn + "?source=dreamfactory&bizCode=dream_factory&_time=" + Date.now() + "&_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2";
+            url = "https://m.jingxi.com/newtasksys/newtasksys_front/" + fn + "?source=dreamfactory&_time=" + Date.now() + "&_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2";
         else
             url = "https://m.jingxi.com/dreamfactory/" + fn + "?zone=dream_factory&_time=" + Date.now() + "&_stk=" + encodeURIComponent(stk) + "&_ste=1&_=" + Date.now() + "&sceneval=2";
         url = (0, TS_USER_AGENTS_1.h5st)(url, stk, params, 10001);
