@@ -79,8 +79,6 @@ var __values = (this && this.__values) || function(o) {
 exports.__esModule = true;
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var axios_1 = require("axios");
-var path = require("path");
-var fs_1 = require("fs");
 var ts_md5_1 = require("ts-md5");
 var cookie = '', res = '', UserName, index, UA = '';
 var shareCodesSelf = [], shareCodes = [], shareCodesHW = [];
@@ -90,15 +88,7 @@ var shareCodesSelf = [], shareCodes = [], shareCodesHW = [];
     var _d;
     return __generator(this, function (_e) {
         switch (_e.label) {
-            case 0:
-                try {
-                    (0, fs_1.accessSync)('./utils/exceptCookie.json');
-                    except = JSON.parse((0, fs_1.readFileSync)('./utils/exceptCookie.json').toString())[path.basename(__filename)];
-                }
-                catch (e) {
-                    except = [];
-                }
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
+            case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
                 cookiesArr = _e.sent();
                 i = 0;
@@ -295,7 +285,7 @@ function getCodesHW() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios_1["default"].get(require('./USER_AGENTS').hwApi + "HW_CODES", { timeout: 10000 })];
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/HW_CODES", { timeout: 10000 })];
                 case 1:
                     data = (_a.sent()).data;
                     console.log('获取HW_CODES成功(api)');
@@ -317,7 +307,7 @@ function getCodesPool() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios_1["default"].get(require('./USER_AGENTS').hwApi + "hb88/30", { timeout: 10000 })];
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/hb88/30", { timeout: 10000 })];
                 case 1:
                     data = (_a.sent()).data;
                     return [2 /*return*/, data.data];
@@ -346,7 +336,7 @@ function makeShareCodes(code) {
                     _a.label = 3;
                 case 3:
                     _a.trys.push([3, 5, , 6]);
-                    return [4 /*yield*/, axios_1["default"].get(require('./USER_AGENTS').hwApi + "autoInsert/hb88?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin, { timeout: 10000 })];
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/hb88?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin, { timeout: 10000 })];
                 case 4:
                     data = (_a.sent()).data;
                     if (data.code === 200)
