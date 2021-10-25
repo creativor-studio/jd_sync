@@ -52,6 +52,7 @@ jobs:
         cd ..
         awk 'BEGIN { cmd="cp -ri ./JDHelloWorld/utils ./"; print "n" |cmd; }'
         mv ./JDHelloWorld/jd_jxmc.js ./JDHelloWorld/jd_jxmch.js
+        mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*_*.js ./"; print "n" |cmd; }'
         rm -rf ./JDHelloWorld
     - name: 'Commit Files'
