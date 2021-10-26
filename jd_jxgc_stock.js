@@ -71,8 +71,8 @@ var cookie = '', res = '', UserName, message = '';
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F71\u3011" + UserName + "\n");
                 try {
-                    (0, fs_1.accessSync)('jxgc_stock.json');
-                    exist = JSON.parse((0, fs_1.readFileSync)('jxgc_stock.json').toString());
+                    (0, fs_1.accessSync)('./json/jxgc_stock.json');
+                    exist = JSON.parse((0, fs_1.readFileSync)('./json/jxgc_stock.json').toString());
                 }
                 catch (e) {
                     exist = [];
@@ -98,7 +98,7 @@ var cookie = '', res = '', UserName, message = '';
                     }
                     finally { if (e_1) throw e_1.error; }
                 }
-                (0, fs_1.writeFileSync)('./jxgc_stock.json', JSON.stringify(current));
+                (0, fs_1.writeFileSync)('./json/jxgc_stock.json', JSON.stringify(current));
                 if (message) {
                     console.log('send...');
                     (0, notify.sendNotify)('京喜工厂可生产', message);
