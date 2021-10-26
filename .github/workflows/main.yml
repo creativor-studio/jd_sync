@@ -42,9 +42,9 @@ jobs:
         echo "========= 开始转换JDHelloWorld的ts脚本 ========="
         cd ./JDHelloWorld
         rm -rf ./backUp
-        rm -rf ./jd_speed_redEnvelope.ts
         rm `ls *.js|egrep -v sendNotify.js`
         sed -i 's#setCookie: string\[\]#setCookie: any#g' ./jd_qq_pasture.ts
+        sed -i 's#appId = 10032#appId: any = 10032#g' ./TS_USER_AGENTS.ts
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
