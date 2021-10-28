@@ -45,6 +45,7 @@ jobs:
         rm `ls *.js|egrep -v sendNotify.js`
         sed -i 's#setCookie: string\[\]#setCookie: any#g' ./jd_qq_pasture.ts
         sed -i 's#appId = 10032#appId: any = 10032#g' ./TS_USER_AGENTS.ts
+        sed -i 's#await wait(4000)##g' ./jd_cfd_withdraw.ts
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
