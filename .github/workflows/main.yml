@@ -22,7 +22,7 @@ jobs:
       run: |
         echo "========= 开始清空脚本 ========="
         shopt -s extglob
-        rm -rf !(README.md|package.json)
+        rm -rf !(README.md|package.json|gua_*)
         shopt -u extglob
         echo "========= 开始下载小小的脚本及依赖 ========="
         git clone -b jd_scripts https://github.com/Aaron-lv/sync.git ./Aaron
