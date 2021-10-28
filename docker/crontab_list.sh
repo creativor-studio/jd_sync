@@ -41,7 +41,7 @@
 # 省钱大赢家翻翻乐
 20 * * * * node /scripts/jd_big_winner.js >> /scripts/logs/jd_big_winner.log 2>&1
 # 京享红包
-0 0,12,18 * * * node /scripts/jd_redEnvelope.js >> /scripts/logs/jd_redEnvelope.log 2>&1
+0 0,12,18,20 * * * node /scripts/jd_redEnvelope.js >> /scripts/logs/jd_redEnvelope.log 2>&1
 
 ##############长期活动##############
 # 签到
