@@ -74,7 +74,7 @@ var cookie = '', res = '', UserName, index;
                 i = 0;
                 _d.label = 3;
             case 3:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 23];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 22];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
@@ -136,10 +136,7 @@ var cookie = '', res = '', UserName, index;
                 res = _d.sent();
                 console.log('资格:', res);
                 if (res.iRet === 2036)
-                    return [3 /*break*/, 23];
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(4000)];
-            case 20:
-                _d.sent();
+                    return [3 /*break*/, 22];
                 console.log('提现：', (0, date_fns_1.format)(new Date(), 'hh:mm:ss:SSS'));
                 money = void 0, h = new Date().getHours();
                 if (h === 0)
@@ -151,14 +148,14 @@ var cookie = '', res = '', UserName, index;
                 money = process.env.CFD_CASHOUT_MONEY ? parseFloat(process.env.CFD_CASHOUT_MONEY) * 100 : money;
                 console.log('本次计划提现：', money / 100);
                 return [4 /*yield*/, api('user/CashOut', '_cfd_t,bizCode,ddwMoney,ddwPaperMoney,dwEnv,ptag,source,strPgUUNum,strPgtimestamp,strPhoneID,strZone', { ddwMoney: money, ddwPaperMoney: money * 10, strPgUUNum: token_1.strPgUUNum, strPgtimestamp: token_1.strPgtimestamp, strPhoneID: token_1.strPhoneID })];
-            case 21:
+            case 20:
                 res = _d.sent();
                 console.log('提现:', res);
-                _d.label = 22;
-            case 22:
+                _d.label = 21;
+            case 21:
                 i++;
                 return [3 /*break*/, 3];
-            case 23: return [2 /*return*/];
+            case 22: return [2 /*return*/];
         }
     });
 }); })();
