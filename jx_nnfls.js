@@ -160,19 +160,17 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
             case 11:
                 if (!!_f.done) return [3 /*break*/, 17];
                 t = _f.value;
-                if (!tasks.includes(t.taskid)) return [3 /*break*/, 16];
+                if (!tasks.includes(t.taskId)) return [3 /*break*/, 16];
                 console.log(t.taskName);
                 return [4 /*yield*/, api('task/drawUserTask', 'sceneval,taskid', { taskid: t.taskId })];
             case 12:
                 res = _l.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 13:
                 _l.sent();
                 return [4 /*yield*/, api('task/UserTaskFinish', 'sceneval,taskid', { taskid: t.taskId })];
             case 14:
                 res = _l.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 15:
                 _l.sent();
