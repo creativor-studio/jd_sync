@@ -53,7 +53,7 @@ var __values = (this && this.__values) || function(o) {
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var sendNotify_1 = require("./sendNotify");
+var notify = require("./sendNotify");
 var fs_1 = require("fs");
 var cookie = '', res = '', UserName, message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -101,7 +101,7 @@ var cookie = '', res = '', UserName, message = '';
                 (0, fs_1.writeFileSync)('./json/jxgc_stock.json', JSON.stringify(current));
                 if (message) {
                     console.log('send...');
-                    (0, sendNotify_1.sendNotify)('京喜工厂可生产', message);
+                    (0, notify.sendNotify)('京喜工厂可生产', message);
                 }
                 return [2 /*return*/];
         }

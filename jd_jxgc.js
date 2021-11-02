@@ -56,7 +56,7 @@ exports.__esModule = true;
 var date_fns_1 = require("date-fns");
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var sendNotify_1 = require("./sendNotify");
+var notify = require("./sendNotify");
 var path = require("path");
 var cookie = '', res = '', UserName, index;
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -103,7 +103,7 @@ var cookie = '', res = '', UserName, index;
                     investedElectric = res.data.productionList[0].investedElectric, needElectric = res.data.productionList[0].needElectric, progress = (investedElectric / needElectric * 100).toFixed(2);
                     console.log('生产进度:', progress);
                     if (progress === '100.00') {
-                        (0, sendNotify_1.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7" + index + " " + UserName);
+                        (0, notify.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7" + index + " " + UserName);
                         return [3 /*break*/, 32];
                     }
                 }

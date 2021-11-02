@@ -53,7 +53,7 @@ var __values = (this && this.__values) || function(o) {
 exports.__esModule = true;
 var axios_1 = require("axios");
 var path = require("path");
-var sendNotify_1 = require("./sendNotify");
+var notify = require("./sendNotify");
 var fs_1 = require("fs");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', UserName, index, allMessage = '', res = '', message = '';
@@ -135,7 +135,7 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
             case 6:
                 (0, fs_1.writeFileSync)('./json/jd_track.json', JSON.stringify(orders));
                 if (!allMessage) return [3 /*break*/, 8];
-                return [4 /*yield*/, (0, sendNotify_1.sendNotify)('京东快递更新', allMessage)];
+                return [4 /*yield*/, (0, notify.sendNotify)('京东快递更新', allMessage)];
             case 7:
                 _f.sent();
                 _f.label = 8;
