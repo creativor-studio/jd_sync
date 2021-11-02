@@ -44,7 +44,7 @@ jobs:
         cd ./JDHelloWorld
         rm -rf ./backUp
         rm `ls *.js|egrep -v sendNotify.js`
-        sed -i 's#setCookie: string\[\]#setCookie: any#g' ./jd_qq_pasture.ts
+        # sed -i 's#setCookie: string\[\]#setCookie: any#g' ./jd_qq_pasture.ts
         sudo npm install
         tsc
         sed -i '/except.includes(encodeURIComponent(UserName)/,+3d' *.js
