@@ -182,7 +182,7 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
             case 18:
                 if (!!_b.done) return [3 /*break*/, 28];
                 t = _b.value;
-                if (!(t.awardStatus === 2)) return [3 /*break*/, 27];
+                if (!(t.awardStatus === 2 && t.taskName !== '邀请牧场新用户助力')) return [3 /*break*/, 27];
                 console.log(t.taskName);
                 if (!(t.completedTimes < t.targetTimes)) return [3 /*break*/, 24];
                 j = t.completedTimes;
@@ -633,7 +633,6 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
                 _q.label = 126;
             case 126:
                 _q.trys.push([126, 128, , 129]);
-                (0, TS_USER_AGENTS_1.resetHosts)();
                 return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/jxmc/30", { timeout: 10000 })];
             case 127:
                 data = (_q.sent()).data;
@@ -787,72 +786,66 @@ function api(fn, stk, params, temporary) {
     });
 }
 function makeShareCodes(code) {
-    var _this = this;
-    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var bean, farm, pin;
+    return __awaiter(this, void 0, void 0, function () {
+        var bean, farm, pin, data, e_13;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.getBeanShareCode)(cookie)];
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.getBeanShareCode)(cookie)];
                 case 1:
                     bean = _a.sent();
                     return [4 /*yield*/, (0, TS_USER_AGENTS_1.getFarmShareCode)(cookie)];
                 case 2:
                     farm = _a.sent();
-                    pin = cookie.match(/pt_pin=([^;]*)/)[1];
-                    pin = ts_md5_1.Md5.hashStr(pin);
-                    (0, TS_USER_AGENTS_1.resetHosts)();
-                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/jxmc?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin, { timeout: 10000 })
-                            .then(function (res) {
-                            if (res.data.code === 200)
-                                console.log('已自动提交助力码');
-                            else
-                                console.log('提交失败！已提交farm的cookie才可提交cfd');
-                            resolve(200);
-                        })["catch"](function () {
-                            reject('访问助力池出错');
-                        })];
+                    pin = ts_md5_1.Md5.hashStr(cookie.match(/pt_pin=([^;]*)/)[1]);
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/jxmc?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin)];
                 case 3:
-                    _a.sent();
-                    return [2 /*return*/];
+                    data = (_a.sent()).data;
+                    console.log(data.message);
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_13 = _a.sent();
+                    console.log('自动提交失败');
+                    console.log(e_13);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
-    }); });
+    });
 }
 function makeShareCodesHb(code) {
-    var _this = this;
-    return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
-        var bean, farm, pin;
+    return __awaiter(this, void 0, void 0, function () {
+        var bean, farm, pin, data, e_14;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.getBeanShareCode)(cookie)];
+                case 0:
+                    _a.trys.push([0, 4, , 5]);
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.getBeanShareCode)(cookie)];
                 case 1:
                     bean = _a.sent();
                     return [4 /*yield*/, (0, TS_USER_AGENTS_1.getFarmShareCode)(cookie)];
                 case 2:
                     farm = _a.sent();
-                    pin = cookie.match(/pt_pin=([^;]*)/)[1];
-                    pin = ts_md5_1.Md5.hashStr(pin);
-                    (0, TS_USER_AGENTS_1.resetHosts)();
-                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/jxmchb?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin, { timeout: 10000 })
-                            .then(function (res) {
-                            if (res.data.code === 200)
-                                console.log('已自动提交红包码');
-                            else
-                                console.log('提交失败！已提交farm的cookie才可提交cfd');
-                            resolve(200);
-                        })["catch"](function () {
-                            reject('访问助力池出错');
-                        })];
+                    pin = ts_md5_1.Md5.hashStr(cookie.match(/pt_pin=([^;]*)/)[1]);
+                    return [4 /*yield*/, axios_1["default"].get("https://api.jdsharecode.xyz/api/autoInsert/jxmchb?sharecode=" + code + "&bean=" + bean + "&farm=" + farm + "&pin=" + pin, { timeout: 10000 })];
                 case 3:
-                    _a.sent();
-                    return [2 /*return*/];
+                    data = (_a.sent()).data;
+                    console.log(data.message);
+                    return [3 /*break*/, 5];
+                case 4:
+                    e_14 = _a.sent();
+                    console.log('自动提交失败');
+                    console.log(e_14);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
             }
         });
-    }); });
+    });
 }
 function getCodes() {
     return __awaiter(this, void 0, void 0, function () {
-        var data, e_13;
+        var data, e_15;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -864,7 +857,7 @@ function getCodes() {
                     shareCodesHbHw = data.jxmchb || [];
                     return [3 /*break*/, 3];
                 case 2:
-                    e_13 = _a.sent();
+                    e_15 = _a.sent();
                     return [3 /*break*/, 3];
                 case 3: return [2 /*return*/];
             }
