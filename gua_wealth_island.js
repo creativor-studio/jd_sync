@@ -1,7 +1,7 @@
 /*
   https://st.jingxi.com/fortune_island/index2.html
 
-  18 0-23/2 * * * https://raw.githubusercontent.com/smiek2221/scripts/master/gua_wealth_island.js 财富大陆
+  18 0-23/2 * * * https://raw.githubusercontent.com/smiek2121/scripts/master/gua_wealth_island.js 财富大陆
 
 */
 
@@ -20,7 +20,7 @@ function randomString(e) {
 }
 $.InviteList = []
 $.innerInviteList = [];
-const HelpAuthorFlag = false;//是否助力作者SH  true 助力，false 不助力
+const HelpAuthorFlag = true;//是否助力作者SH  true 助力，false 不助力
 
 // 热气球接客 每次运行接客次数
 let serviceNum = 10;// 每次运行接客次数
