@@ -49,159 +49,119 @@ var __values = (this && this.__values) || function(o) {
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var $ = {};
-var cookie = '', cookiesArr = [], res, shareCodes = [];
-var token = '', token2 = '', pin = '', uuid = '';
-var shopId = '';
+var cookie = '', res, shareCodes = [], UserName, index;
+var pin = '', uuid = '', shopId = '', tokenKey = '', token = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var i, foodLeft, _a, _b, t, signRes, r, products, _c, _d, p, i_1, playRes, e_1_1;
-    var e_1, _e, e_2, _f;
-    return __generator(this, function (_g) {
-        switch (_g.label) {
-            case 0: return [4 /*yield*/, requireConfig()];
+    var cookiesArr, i, foodLeft, j;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                _g.sent();
+                cookiesArr = _a.sent();
                 i = 0;
-                _g.label = 2;
+                _a.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 32];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 16];
                 cookie = cookiesArr[i];
-                $.UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                $.index = i + 1;
-                $.isLogin = true;
-                $.nickName = $.UserName;
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + $.index + "\u3011" + ($.nickName || $.UserName) + "\n");
+                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                index = i + 1;
+                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
                 return [4 /*yield*/, getIsvToken()];
             case 3:
-                _g.sent();
+                _a.sent();
                 return [4 /*yield*/, getIsvToken2()];
             case 4:
-                _g.sent();
+                _a.sent();
                 return [4 /*yield*/, init()];
             case 5:
-                _g.sent();
+                _a.sent();
                 return [4 /*yield*/, api('https://lzdz-isv.isvjcloud.com/dz/common/getSimpleActInfoVo', 'activityId=90121061401')];
             case 6:
-                res = _g.sent();
+                res = _a.sent();
                 shopId = res.data.shopId;
                 console.log('shopId:', shopId);
-                return [4 /*yield*/, api('https://lzdz-isv.isvjcloud.com/customer/getMyPing', "userId=1000361242&token=" + token2 + "&fromType=APP")];
+                return [4 /*yield*/, api('https://lzdz-isv.isvjcloud.com/customer/getMyPing', "userId=1000361242&token=" + token + "&fromType=APP")];
             case 7:
-                res = _g.sent();
+                res = _a.sent();
                 pin = res.data.secretPin;
                 console.log('pin:', pin);
                 return [4 /*yield*/, api('myInfo', "activityId=90121061401&pin=" + encodeURIComponent(pin))];
             case 8:
-                res = _g.sent();
+                res = _a.sent();
                 foodLeft = res.data.bags[1].totalNum - res.data.bags[1].useNum;
-                console.log(foodLeft);
-                _g.label = 9;
+                uuid = res.data.bags[0].uid;
+                console.log('剩余饲料', foodLeft);
+                j = 0;
+                _a.label = 9;
             case 9:
-                _g.trys.push([9, 29, 30, 31]);
-                _a = (e_1 = void 0, __values(res.data.task)), _b = _a.next();
-                _g.label = 10;
+                if (!(j < 20)) return [3 /*break*/, 14];
+                return [4 /*yield*/, api('doTask', "taskId=interact&activityId=90121061401&pin=" + encodeURIComponent(pin))];
             case 10:
-                if (!!_b.done) return [3 /*break*/, 28];
-                t = _b.value;
-                if (!(t.type === 0 && t.maxNeed === 10000000)) return [3 /*break*/, 13];
-                // 首页任务
-                console.log(t.type, t.taskname);
-                return [4 /*yield*/, api('doTask', "taskId=" + t.taskid + "&activityId=90121061401&pin=" + encodeURIComponent(pin))];
+                res = _a.sent();
+                if (!res.result) return [3 /*break*/, 12];
+                console.log('互动成功', res.data.growUp);
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(7000)];
             case 11:
-                res = _g.sent();
-                if (res.result) {
-                    console.log(t.taskname + "\u6210\u529F:" + res.data.growUp);
-                }
-                else {
-                    console.log(res.errorMessage);
-                }
-                return [4 /*yield*/, wait(5000)];
+                _a.sent();
+                return [3 /*break*/, 13];
             case 12:
-                _g.sent();
-                _g.label = 13;
+                console.log('互动失败', res);
+                return [3 /*break*/, 14];
             case 13:
-                if (!(t.curNum != t.need && t.type === 1)) return [3 /*break*/, 27];
-                console.log(t.taskname);
-                if (!(t.taskid === 'signin')) return [3 /*break*/, 15];
-                return [4 /*yield*/, api("signin", "taskId=signin&param=&activityId=90121061401&pin=" + encodeURIComponent(pin))];
-            case 14:
-                signRes = _g.sent();
-                console.log('签到:', signRes);
-                _g.label = 15;
+                j++;
+                return [3 /*break*/, 9];
+            case 14: 
+            /*
+            for (let t of res.data.task) {
+              if (t.type === 0 && t.maxNeed === 10000000) {
+                // 首页任务
+                console.log(t.type, t.taskname)
+                res = await api('doTask', `taskId=${t.taskid}&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                if (res.result) {
+                  console.log(`${t.taskname}成功:${res.data.growUp}`)
+                } else {
+                  console.log(res.errorMessage)
+                }
+                await wait(5000)
+              }
+        
+              if (t.curNum != t.need && t.type === 1) {
+                console.log(t.taskname)
+                if (t.taskid === 'signin') {
+                  let signRes: any = await api("signin", `taskId=signin&param=&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                  console.log('签到:', signRes)
+                }
+                if (t.taskid === 'scanvideo') {
+                  let r: any = await api('doTask', `taskId=${t.taskid}&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                  await wait(1000)
+                }
+                if (t.taskid === 'scansku' || t.taskid === 'add2cart') {
+                  let products: any = await api('getproduct', `type=${t.params}&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                  await wait(1000)
+                  await api("doTask", `taskId=${t.taskid}&param=${products.data[0].id}&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                  for (let p of products.data) {
+                    console.log(p.id)
+                  }
+                }
+                if (t.taskid === 'interact') {
+                  for (let i = 0; i < t.maxNeed - t.curNum; i++) {
+                    let playRes: any = await api('doTask', `taskId=${t.taskid}&activityId=90121061401&pin=${encodeURIComponent(pin)}`)
+                    if (playRes.result) {
+                      console.log('互动成功:', playRes.data.growUp)
+                    } else {
+                      console.log(res.errorMessage)
+                    }
+                    await wait(5000)
+                  }
+                }
+              }
+            }
+             */
+            return [3 /*break*/, 16];
             case 15:
-                if (!(t.taskid === 'scanvideo')) return [3 /*break*/, 18];
-                return [4 /*yield*/, api('doTask', "taskId=" + t.taskid + "&activityId=90121061401&pin=" + encodeURIComponent(pin))];
-            case 16:
-                r = _g.sent();
-                return [4 /*yield*/, wait(1000)];
-            case 17:
-                _g.sent();
-                _g.label = 18;
-            case 18:
-                if (!(t.taskid === 'scansku' || t.taskid === 'add2cart')) return [3 /*break*/, 22];
-                return [4 /*yield*/, api('getproduct', "type=" + t.params + "&activityId=90121061401&pin=" + encodeURIComponent(pin))];
-            case 19:
-                products = _g.sent();
-                return [4 /*yield*/, wait(1000)];
-            case 20:
-                _g.sent();
-                return [4 /*yield*/, api("doTask", "taskId=" + t.taskid + "&param=" + products.data[0].id + "&activityId=90121061401&pin=" + encodeURIComponent(pin))];
-            case 21:
-                _g.sent();
-                try {
-                    for (_c = (e_2 = void 0, __values(products.data)), _d = _c.next(); !_d.done; _d = _c.next()) {
-                        p = _d.value;
-                        console.log(p.id);
-                    }
-                }
-                catch (e_2_1) { e_2 = { error: e_2_1 }; }
-                finally {
-                    try {
-                        if (_d && !_d.done && (_f = _c["return"])) _f.call(_c);
-                    }
-                    finally { if (e_2) throw e_2.error; }
-                }
-                _g.label = 22;
-            case 22:
-                if (!(t.taskid === 'interact')) return [3 /*break*/, 27];
-                i_1 = 0;
-                _g.label = 23;
-            case 23:
-                if (!(i_1 < t.maxNeed - t.curNum)) return [3 /*break*/, 27];
-                return [4 /*yield*/, api('doTask', "taskId=" + t.taskid + "&activityId=90121061401&pin=" + encodeURIComponent(pin))];
-            case 24:
-                playRes = _g.sent();
-                if (playRes.result) {
-                    console.log('互动成功:', playRes.data.growUp);
-                }
-                else {
-                    console.log(res.errorMessage);
-                }
-                return [4 /*yield*/, wait(1000)];
-            case 25:
-                _g.sent();
-                _g.label = 26;
-            case 26:
-                i_1++;
-                return [3 /*break*/, 23];
-            case 27:
-                _b = _a.next();
-                return [3 /*break*/, 10];
-            case 28: return [3 /*break*/, 31];
-            case 29:
-                e_1_1 = _g.sent();
-                e_1 = { error: e_1_1 };
-                return [3 /*break*/, 31];
-            case 30:
-                try {
-                    if (_b && !_b.done && (_e = _a["return"])) _e.call(_a);
-                }
-                finally { if (e_1) throw e_1.error; }
-                return [7 /*endfinally*/];
-            case 31:
                 i++;
                 return [3 /*break*/, 2];
-            case 32: return [2 /*return*/];
+            case 16: return [2 /*return*/];
         }
     });
 }); })();
@@ -218,9 +178,7 @@ function api(fn, body) {
         var _a, data, headers;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post(url, body
-                    // `activityId=90121061401&pin=${encodeURIComponent(pin)}&actorUuid=${uuid}&userUuid=${uuid}`
-                    , {
+                case 0: return [4 /*yield*/, axios_1["default"].post(url, typeof body === 'string' ? body : JSON.stringify(body), {
                         headers: {
                             'Host': 'lzdz-isv.isvjcloud.com',
                             'Content-Type': 'application/x-www-form-urlencoded',
@@ -233,79 +191,114 @@ function api(fn, body) {
                     })];
                 case 1:
                     _a = _b.sent(), data = _a.data, headers = _a.headers;
-                    reloadCookie(headers['set-cookie']);
                     resolve(data);
+                    reloadCookie(headers['set-cookie']);
                     return [2 /*return*/];
             }
         });
     }); });
 }
 function getIsvToken() {
-    var _this = this;
-    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-        var data;
+    return __awaiter(this, void 0, void 0, function () {
+        var body, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/client.action?functionId=genToken&clientVersion=10.0.2&client=android&uuid=818aa057737ba6a4&st=1623934987178&sign=0877498be29cda51b9628fa0195f412f&sv=111", "body=" + escape('{"action":"to","to":"https%3A%2F%2Fh5.m.jd.com%2FbabelDiy%2FZeus%2F3KSjXqQabiTuD1cJ28QskrpWoBKT%2Findex.html%3FbabelChannel%3D45%26collectionId%3D519"}'), {
-                        headers: {
-                            'Host': 'api.m.jd.com',
-                            'charset': 'UTF-8',
-                            'User-Agent': TS_USER_AGENTS_1["default"],
-                            'cache-control': 'no-cache',
-                            'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                            'cookie': cookie
-                        }
-                    })];
+                case 0: return [4 /*yield*/, sign()];
                 case 1:
+                    body = _a.sent();
+                    return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/client.action?functionId=genToken", body, {
+                            headers: {
+                                'Host': 'api.m.jd.com',
+                                'content-type': 'application/x-www-form-urlencoded',
+                                'referer': '',
+                                'user-agent': 'JD4iPhone/167863%20(iPhone;%20iOS;%20Scale/3.00)',
+                                'Cookie': cookie
+                            }
+                        })];
+                case 2:
                     data = (_a.sent()).data;
-                    token = data.tokenKey;
-                    resolve();
+                    tokenKey = data.tokenKey;
                     return [2 /*return*/];
             }
         });
-    }); });
+    });
 }
 function getIsvToken2() {
-    var _this = this;
-    return new Promise(function (resolve) { return __awaiter(_this, void 0, void 0, function () {
-        var data;
+    return __awaiter(this, void 0, void 0, function () {
+        var body, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/client.action?functionId=isvObfuscator&clientVersion=10.0.2&client=android&uuid=818aa057737ba6a4&st=1623934998790&sign=e571148c8dfb456a1795d249c6aa3956&sv=100", 'body=%7B%22id%22%3A%22%22%2C%22url%22%3A%22https%3A//xinruidddj-isv.isvjcloud.com%22%7D', {
-                        headers: {
-                            'Host': 'api.m.jd.com',
-                            'user-agent': TS_USER_AGENTS_1["default"],
-                            'content-type': 'application/x-www-form-urlencoded',
-                            'Cookie': cookie
-                        }
-                    })];
+                case 0: return [4 /*yield*/, isvObfuscator()];
                 case 1:
+                    body = _a.sent();
+                    return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/client.action?functionId=isvObfuscator", body, {
+                            headers: {
+                                'Host': 'api.m.jd.com',
+                                'accept': '*/*',
+                                'content-type': 'application/x-www-form-urlencoded',
+                                'referer': '',
+                                'user-agent': 'JD4iPhone/167814 (iPhone; iOS 12.4.1; Scale/3.00)',
+                                'accept-language': 'zh-Hans-CN;q=1',
+                                'Cookie': cookie
+                            }
+                        })];
+                case 2:
                     data = (_a.sent()).data;
-                    token2 = data.token;
-                    cookie += 'IsvToken=' + token2 + ';';
-                    resolve();
+                    token = data.token;
                     return [2 /*return*/];
             }
         });
-    }); });
+    });
 }
 function init() {
-    return new Promise(function (resolve) {
-        axios_1["default"].get("https://lzdz-isv.isvjcloud.com/dingzhi/qqxing/pasture/activity?activityId=90121061401?activityId=90121061401", {
-            headers: {
-                'Host': 'lzdz-isv.isvjcloud.com',
-                'User-Agent': TS_USER_AGENTS_1["default"],
-                'X-Requested-With': 'com.jingdong.app.mall',
-                'Cookie': 'IsvToken=' + token
+    return __awaiter(this, void 0, void 0, function () {
+        var headers;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1["default"].get("https://lzdz-isv.isvjcloud.com/dingzhi/qqxing/pasture/activity?activityId=90121061401", {
+                        headers: {
+                            'Host': 'lzdz-isv.isvjcloud.com',
+                            'User-Agent': TS_USER_AGENTS_1["default"],
+                            'X-Requested-With': 'com.jingdong.app.mall',
+                            'Cookie': 'IsvToken=' + token
+                        }
+                    })];
+                case 1:
+                    headers = (_a.sent()).headers;
+                    reloadCookie(headers['set-cookie']);
+                    return [2 /*return*/];
             }
-        }).then(function (res) {
-            reloadCookie(res.headers['set-cookie']);
-            resolve();
+        });
+    });
+}
+function sign() {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1["default"].post("https://api.jds.codes/sign", { "fn": "genToken", "body": { "to": "https:\/\/lzdz-isv.isvjcloud.com\/dingzhi\/qqxing\/pasture\/activity?activityId=90121061401", "action": "to" } })];
+                case 1:
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data.data.sign];
+            }
+        });
+    });
+}
+function isvObfuscator() {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1["default"].post("https://api.jds.codes/sign", { "fn": "isvObfuscator", "body": { "url": "https:\/\/lzdz-isv.isvjcloud.com", "id": "" } })];
+                case 1:
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data.data.sign];
+            }
         });
     });
 }
 function reloadCookie(setCookie) {
-    var e_3, _a, e_4, _b;
+    var e_1, _a, e_2, _b;
     var cookieArr = cookie.split(';');
     cookieArr.pop();
     var cookieTEMP = {};
@@ -315,12 +308,12 @@ function reloadCookie(setCookie) {
             cookieTEMP[ck.split('=')[0]] = ck.match(/(pt_key|pt_pin|LZ_TOKEN_KEY|LZ_TOKEN_VALUE|AUTH_C_USER|lz_jdpin_token|IsvToken)=([^;]*)/)[2];
         }
     }
-    catch (e_3_1) { e_3 = { error: e_3_1 }; }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
     finally {
         try {
             if (cookieArr_1_1 && !cookieArr_1_1.done && (_a = cookieArr_1["return"])) _a.call(cookieArr_1);
         }
-        finally { if (e_3) throw e_3.error; }
+        finally { if (e_1) throw e_1.error; }
     }
     try {
         for (var setCookie_1 = __values(setCookie), setCookie_1_1 = setCookie_1.next(); !setCookie_1_1.done; setCookie_1_1 = setCookie_1.next()) {
@@ -329,12 +322,12 @@ function reloadCookie(setCookie) {
             cookieTEMP[ck.split('=')[0]] = ck.match(/(pt_key|pt_pin|LZ_TOKEN_KEY|LZ_TOKEN_VALUE|AUTH_C_USER|lz_jdpin_token|IsvToken)=([^;]*)/)[2];
         }
     }
-    catch (e_4_1) { e_4 = { error: e_4_1 }; }
+    catch (e_2_1) { e_2 = { error: e_2_1 }; }
     finally {
         try {
             if (setCookie_1_1 && !setCookie_1_1.done && (_b = setCookie_1["return"])) _b.call(setCookie_1);
         }
-        finally { if (e_4) throw e_4.error; }
+        finally { if (e_2) throw e_2.error; }
     }
     cookie = '';
     for (var ck in cookieTEMP) {
@@ -342,29 +335,4 @@ function reloadCookie(setCookie) {
             cookie += ck + "=" + cookieTEMP[ck] + ";";
         }
     }
-}
-function wait(t) {
-    var _this = this;
-    return new Promise(function (resolve) {
-        setTimeout(function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                resolve();
-                return [2 /*return*/];
-            });
-        }); }, t);
-    });
-}
-function requireConfig() {
-    return new Promise(function (resolve) {
-        console.log('\n====================Hello World====================\n');
-        console.log('开始获取配置文件\n');
-        var jdCookieNode = require('./jdCookie.js');
-        Object.keys(jdCookieNode).forEach(function (item) {
-            if (jdCookieNode[item]) {
-                cookiesArr.push(jdCookieNode[item]);
-            }
-        });
-        console.log("\u5171" + cookiesArr.length + "\u4E2A\u4EAC\u4E1C\u8D26\u53F7\n");
-        resolve(0);
-    });
 }
