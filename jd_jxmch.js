@@ -255,7 +255,7 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
                 if (!(card.currnum >= card.neednum)) return [3 /*break*/, 36];
                 console.log('可以兑换');
                 // TODO 兑换卡片
-                return [4 /*yield*/, (0, notify.sendNotify)('牧场卡片可兑换', UserName)];
+                return [4 /*yield*/, (0, sendNotify_1.sendNotify)('牧场卡片可兑换', UserName)];
             case 35:
                 // TODO 兑换卡片
                 _q.sent();
@@ -277,7 +277,7 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
             case 40:
                 drawTimes = res.data.times;
                 if (!(typeof drawTimes === "undefined")) return [3 /*break*/, 42];
-                return [4 /*yield*/, (0, notify.sendNotify)("牧场扭蛋机错误", "\u8D26\u53F7" + (i + 1) + " " + UserName + "\n\u624B\u52A8\u5EFA\u9020\u626D\u86CB\u673A")];
+                return [4 /*yield*/, (0, sendNotify_1.sendNotify)("牧场扭蛋机错误", "\u8D26\u53F7" + (i + 1) + " " + UserName + "\n\u624B\u52A8\u5EFA\u9020\u626D\u86CB\u673A")];
             case 41:
                 _q.sent();
                 return [3 /*break*/, 49];

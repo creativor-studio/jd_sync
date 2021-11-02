@@ -103,7 +103,7 @@ var cookie = '', res = '', UserName, index;
                     investedElectric = res.data.productionList[0].investedElectric, needElectric = res.data.productionList[0].needElectric, progress = (investedElectric / needElectric * 100).toFixed(2);
                     console.log('生产进度:', progress);
                     if (progress === '100.00') {
-                        (0, notify.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7" + index + " " + UserName);
+                        (0, sendNotify_1.sendNotify)("京喜工厂生产完成", "\u8D26\u53F7" + index + " " + UserName);
                         return [3 /*break*/, 32];
                     }
                 }

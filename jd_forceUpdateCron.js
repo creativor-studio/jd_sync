@@ -104,7 +104,7 @@ function set(task, bearer, cron) {
                     data = (_a.sent()).data;
                     if (!(data.code === 200)) return [3 /*break*/, 3];
                     console.log(task.name + "\u7684cron\u66F4\u65B0\u6210\u529F");
-                    return [4 /*yield*/, (0, notify.sendNotify)('强制更新cron', message)];
+                    return [4 /*yield*/, (0, sendNotify_1.sendNotify)('强制更新cron', message)];
                 case 2:
                     _a.sent();
                     return [3 /*break*/, 4];

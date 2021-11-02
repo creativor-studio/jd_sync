@@ -101,7 +101,7 @@ var cookie = '', res = '', UserName, message = '';
                 (0, fs_1.writeFileSync)('./json/jxgc_stock.json', JSON.stringify(current));
                 if (message) {
                     console.log('send...');
-                    (0, notify.sendNotify)('京喜工厂可生产', message);
+                    (0, sendNotify_1.sendNotify)('京喜工厂可生产', message);
                 }
                 return [2 /*return*/];
         }

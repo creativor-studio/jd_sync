@@ -135,7 +135,7 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
             case 6:
                 (0, fs_1.writeFileSync)('./json/jd_track.json', JSON.stringify(orders));
                 if (!allMessage) return [3 /*break*/, 8];
-                return [4 /*yield*/, (0, notify.sendNotify)('京东快递更新', allMessage)];
+                return [4 /*yield*/, (0, sendNotify_1.sendNotify)('京东快递更新', allMessage)];
             case 7:
                 _f.sent();
                 _f.label = 8;
