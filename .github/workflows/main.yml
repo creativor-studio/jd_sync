@@ -49,6 +49,8 @@ jobs:
         mv ./JDHelloWorld/jd_cfd.js ./JDHelloWorld/jd_cfdh.js
         awk 'BEGIN { cmd="cp -i ./JDHelloWorld/*_*.js ./"; print "n" |cmd; }'
         rm -rf ./JDHelloWorld
+        echo "========= 开始删除某些任务 ========="
+        sed -i '/jd_beauty\|jd_crazy_joy\|jd_crazy_joy_bonus\|jd_daily_egg\|jd_daily_lottery\|jd_jxg\|jd_jxnc\|jd_small_home\|jd_speed\|jd_speed_redpocke\|jd_moneyTree\|jd_kd/d' ./docker/crontab_list.sh
     - name: 'Commit Files'
       id: commit
       run: |
