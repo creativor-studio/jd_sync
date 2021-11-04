@@ -30,10 +30,6 @@ jobs:
         rm ./Aaron/package.json
         cp -rf ./Aaron/* ./
         rm -rf ./Aaron
-        echo "========= 开始下载smiek2221的脚本 ========="
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/gua_MMdou.js
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/gua_wealth_island.js
-        wget -N https://raw.githubusercontent.com/smiek2121/scripts/master/gua_wealth_island_help.js
         echo "========= 开始下载JDHelloWorld的脚本 ========="
         git clone https://github.com/JDHelloWorld/jd_scripts.git ./JDHelloWorld
         echo "========= 开始复制依赖 ========="
