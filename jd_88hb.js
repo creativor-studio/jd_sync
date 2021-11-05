@@ -84,6 +84,14 @@ var date_fns_1 = require("date-fns");
 var token = require('./utils/jd_jxmc.js').token;
 var cookie = '', res = '', UserName, index, UA = '';
 var shareCodesSelf = [], shareCodes = [], shareCodesHW = [], jxToken;
+var HW_Priority = true;
+/**
+ * CK1助力顺序
+ * HW_Priority: boolean
+ * true  HW.ts -> 内部
+ * false 内部   -> HW.ts
+ */
+process.env.HW_Priority === 'false' ? HW_Priority = false : '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
     var cookiesArr, i, strUserPin, dwHelpedTimes, i, shareCodes_1, shareCodes_1_1, code, e_1_1, i, strUserPin, dwHelpedTimes, _a, _b, t, e_2_1;
     var e_1, _c, e_2, _d;
@@ -145,7 +153,12 @@ var shareCodesSelf = [], shareCodes = [], shareCodesHW = [], jxToken;
                 shareCodesHW = _f.sent();
                 _f.label = 14;
             case 14:
-                shareCodes = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodesSelf), false), __read(shareCodesHW), false)));
+                if (i === 0 && HW_Priority) {
+                    shareCodes = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodesHW), false), __read(shareCodesSelf), false)));
+                }
+                else {
+                    shareCodes = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodesSelf), false), __read(shareCodesHW), false)));
+                }
                 _f.label = 15;
             case 15:
                 _f.trys.push([15, 21, 22, 23]);
