@@ -58,14 +58,14 @@ var fs_1 = require("fs");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var cookie = '', UserName, index, allMessage = '', res = '', message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, except, orders, i, _a, _b, order, orderId, title, t, status_1;
-    var e_1, _c;
-    var _d, _e;
-    return __generator(this, function (_f) {
-        switch (_f.label) {
+    var cookiesArr, except, orders, i, _a, _b, order, orderId, title, t, status_1, account, account_1, account_1_1, acc;
+    var e_1, _c, e_2, _d;
+    var _e, _f;
+    return __generator(this, function (_g) {
+        switch (_g.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _f.sent();
+                cookiesArr = _g.sent();
                 except = (0, TS_USER_AGENTS_1.exceptCookie)(path.basename(__filename));
                 try {
                     (0, fs_1.accessSync)('./json/jd_track.json');
@@ -75,7 +75,7 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                     orders = {};
                 }
                 i = 0;
-                _f.label = 2;
+                _g.label = 2;
             case 2:
                 if (!(i < cookiesArr.length)) return [3 /*break*/, 6];
                 cookie = cookiesArr[i];
@@ -89,14 +89,14 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                 message = '';
                 return [4 /*yield*/, getOrderList()];
             case 3:
-                res = _f.sent();
+                res = _g.sent();
                 try {
                     for (_a = (e_1 = void 0, __values(res.orderList)), _b = _a.next(); !_b.done; _b = _a.next()) {
                         order = _b.value;
                         orderId = order['orderId'];
                         title = order['productList'][0]['title'];
-                        t = ((_d = order.progressInfo) === null || _d === void 0 ? void 0 : _d.tip) || null;
-                        status_1 = ((_e = order.progressInfo) === null || _e === void 0 ? void 0 : _e.content) || null;
+                        t = ((_e = order.progressInfo) === null || _e === void 0 ? void 0 : _e.tip) || null;
+                        status_1 = ((_f = order.progressInfo) === null || _f === void 0 ? void 0 : _f.content) || null;
                         if (t && status_1) {
                             if (status_1.match(/(?=签收|已取走|已暂存)/))
                                 continue;
@@ -128,18 +128,33 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 4:
-                _f.sent();
-                _f.label = 5;
+                _g.sent();
+                _g.label = 5;
             case 5:
                 i++;
                 return [3 /*break*/, 2];
             case 6:
-                (0, fs_1.writeFileSync)('./json/jd_track.json', JSON.stringify(orders));
+                orders = JSON.stringify(orders, null, 2);
+                account = JSON.parse((0, fs_1.readFileSync)('./utils/account.json').toString() || '[]') || [];
+                try {
+                    for (account_1 = __values(account), account_1_1 = account_1.next(); !account_1_1.done; account_1_1 = account_1.next()) {
+                        acc = account_1_1.value;
+                        orders = orders.replace(new RegExp(decodeURIComponent(acc['pt_pin']), 'g'), acc['remarks']);
+                    }
+                }
+                catch (e_2_1) { e_2 = { error: e_2_1 }; }
+                finally {
+                    try {
+                        if (account_1_1 && !account_1_1.done && (_d = account_1["return"])) _d.call(account_1);
+                    }
+                    finally { if (e_2) throw e_2.error; }
+                }
+                (0, fs_1.writeFileSync)('./json/jd_track.json', orders);
                 if (!allMessage) return [3 /*break*/, 8];
                 return [4 /*yield*/, (0, notify.sendNotify)('京东快递更新', allMessage)];
             case 7:
-                _f.sent();
-                _f.label = 8;
+                _g.sent();
+                _g.label = 8;
             case 8: return [2 /*return*/];
         }
     });

@@ -1,4 +1,8 @@
 "use strict";
+/**
+ * 东东世界
+ * cron: 5 0,8,20 * * *
+ */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -49,62 +53,62 @@ var __values = (this && this.__values) || function(o) {
 exports.__esModule = true;
 var axios_1 = require("axios");
 var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
-var cookie = '', res = '', shareCodes = [], shareCodesInternal = [], UserName, index;
+var cookie = '', res = '', shareCodesInternal = [], UserName, index;
 var tokenKey = '', token = '', bearer = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, i, _a, _b, t, items, items_1, items_1_1, item, name_1, e_1_1, e_2, e_3_1, i;
-    var e_3, _c, e_1, _d;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
+    var cookiesArr, i, _a, _b, t, items, items_1, items_1_1, item, name_1, e_1_1, e_2_1, res_1, res_1_1, t, e_3_1, i;
+    var e_2, _c, e_1, _d, e_3, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0: return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 1:
-                cookiesArr = _e.sent();
+                cookiesArr = _f.sent();
                 i = 0;
-                _e.label = 2;
+                _f.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 30];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 37];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
                 return [4 /*yield*/, getIsvToken()];
             case 3:
-                _e.sent();
+                _f.sent();
                 return [4 /*yield*/, getIsvToken2()];
             case 4:
-                _e.sent();
+                _f.sent();
                 return [4 /*yield*/, getToken()];
             case 5:
-                _e.sent();
+                _f.sent();
                 return [4 /*yield*/, api('get_task')];
             case 6:
-                res = _e.sent();
-                _e.label = 7;
+                res = _f.sent();
+                _f.label = 7;
             case 7:
-                _e.trys.push([7, 27, 28, 29]);
-                _a = (e_3 = void 0, __values(res.result.taskVos)), _b = _a.next();
-                _e.label = 8;
+                _f.trys.push([7, 24, 25, 26]);
+                _a = (e_2 = void 0, __values(res.result.taskVos)), _b = _a.next();
+                _f.label = 8;
             case 8:
-                if (!!_b.done) return [3 /*break*/, 26];
+                if (!!_b.done) return [3 /*break*/, 23];
                 t = _b.value;
-                if (!(t.status === 1)) return [3 /*break*/, 25];
+                if (!(t.status === 1)) return [3 /*break*/, 22];
                 if (!t.simpleRecordInfoVo) return [3 /*break*/, 11];
                 return [4 /*yield*/, api('do_task', "taskToken=" + t.simpleRecordInfoVo.taskToken + "&task_id=" + t.taskId + "&task_type=" + t.taskType)];
             case 9:
                 // 签到
-                res = _e.sent();
+                res = _f.sent();
                 console.log('签到成功：', res.score);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 10:
-                _e.sent();
+                _f.sent();
                 return [3 /*break*/, 20];
             case 11:
                 items = t.browseShopVo || t.shoppingActivityVos || t.productInfoVos || [];
-                _e.label = 12;
+                _f.label = 12;
             case 12:
-                _e.trys.push([12, 18, 19, 20]);
+                _f.trys.push([12, 18, 19, 20]);
                 items_1 = (e_1 = void 0, __values(items)), items_1_1 = items_1.next();
-                _e.label = 13;
+                _f.label = 13;
             case 13:
                 if (!!items_1_1.done) return [3 /*break*/, 17];
                 item = items_1_1.value;
@@ -112,18 +116,18 @@ var tokenKey = '', token = '', bearer = '';
                 name_1 = item.shopName || item.title || item.skuName;
                 return [4 /*yield*/, api('do_task', "taskToken=" + item.taskToken + "&task_id=" + t.taskId + "&task_type=" + t.taskType + "&task_name=" + encodeURIComponent(name_1))];
             case 14:
-                res = _e.sent();
+                res = _f.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(5000)];
             case 15:
-                _e.sent();
+                _f.sent();
                 console.log('任务完成：', res.score);
-                _e.label = 16;
+                _f.label = 16;
             case 16:
                 items_1_1 = items_1.next();
                 return [3 /*break*/, 13];
             case 17: return [3 /*break*/, 20];
             case 18:
-                e_1_1 = _e.sent();
+                e_1_1 = _f.sent();
                 e_1 = { error: e_1_1 };
                 return [3 /*break*/, 20];
             case 19:
@@ -133,70 +137,101 @@ var tokenKey = '', token = '', bearer = '';
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
             case 20:
-                if (!(t.taskName === '邀请好友助力')) return [3 /*break*/, 25];
+                if (!(t.taskName === '邀请好友助力')) return [3 /*break*/, 22];
                 console.log('助力码：', t.assistTaskDetailVo.taskToken);
                 return [4 /*yield*/, api('get_user_info')];
             case 21:
-                res = _e.sent();
+                res = _f.sent();
                 shareCodesInternal.push({
                     taskToken: t.assistTaskDetailVo.taskToken,
                     inviter_id: res.openid
                 });
-                _e.label = 22;
+                _f.label = 22;
             case 22:
-                _e.trys.push([22, 24, , 25]);
-                return [4 /*yield*/, axios_1["default"].get("http://127.0.0.1:10001/api/autoInsert/ddworld?sharecode=" + encodeURIComponent(t.assistTaskDetailVo.taskToken + ',' + res.openid))];
-            case 23:
-                _e.sent();
-                return [3 /*break*/, 25];
-            case 24:
-                e_2 = _e.sent();
-                return [3 /*break*/, 25];
-            case 25:
                 _b = _a.next();
                 return [3 /*break*/, 8];
-            case 26: return [3 /*break*/, 29];
-            case 27:
-                e_3_1 = _e.sent();
-                e_3 = { error: e_3_1 };
-                return [3 /*break*/, 29];
-            case 28:
+            case 23: return [3 /*break*/, 26];
+            case 24:
+                e_2_1 = _f.sent();
+                e_2 = { error: e_2_1 };
+                return [3 /*break*/, 26];
+            case 25:
                 try {
                     if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
                 }
+                finally { if (e_2) throw e_2.error; }
+                return [7 /*endfinally*/];
+            case 26:
+                if (!(new Date().getHours() === 20)) return [3 /*break*/, 36];
+                return [4 /*yield*/, api('get_exchange')];
+            case 27:
+                res = _f.sent();
+                console.log(res);
+                _f.label = 28;
+            case 28:
+                _f.trys.push([28, 34, 35, 36]);
+                res_1 = (e_3 = void 0, __values(res)), res_1_1 = res_1.next();
+                _f.label = 29;
+            case 29:
+                if (!!res_1_1.done) return [3 /*break*/, 33];
+                t = res_1_1.value;
+                if (!(t.times_limit !== t.exchange_total)) return [3 /*break*/, 32];
+                console.log('兑换', t.coins);
+                return [4 /*yield*/, api('do_exchange', "id=" + t.id)];
+            case 30:
+                res = _f.sent();
+                (0, TS_USER_AGENTS_1.o2s)(res);
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+            case 31:
+                _f.sent();
+                _f.label = 32;
+            case 32:
+                res_1_1 = res_1.next();
+                return [3 /*break*/, 29];
+            case 33: return [3 /*break*/, 36];
+            case 34:
+                e_3_1 = _f.sent();
+                e_3 = { error: e_3_1 };
+                return [3 /*break*/, 36];
+            case 35:
+                try {
+                    if (res_1_1 && !res_1_1.done && (_e = res_1["return"])) _e.call(res_1);
+                }
                 finally { if (e_3) throw e_3.error; }
                 return [7 /*endfinally*/];
-            case 29:
+            case 36:
                 i++;
                 return [3 /*break*/, 2];
-            case 30:
+            case 37:
                 console.log('内部助力码：', shareCodesInternal);
                 i = 0;
-                _e.label = 31;
-            case 31:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 35];
+                _f.label = 38;
+            case 38:
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 42];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 console.log(UserName + "\u53BB\u52A9\u529B" + shareCodesInternal[0].taskToken);
                 return [4 /*yield*/, api('do_assist_task', "taskToken=" + shareCodesInternal[0].taskToken + "&inviter_id=" + shareCodesInternal[0].inviter_id)];
-            case 32:
-                res = _e.sent();
+            case 39:
+                res = _f.sent();
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 33:
-                _e.sent();
+            case 40:
+                _f.sent();
                 console.log('助力结果：', res);
-                _e.label = 34;
-            case 34:
+                if (!res)
+                    return [3 /*break*/, 42];
+                _f.label = 41;
+            case 41:
                 i++;
-                return [3 /*break*/, 31];
-            case 35: return [2 /*return*/];
+                return [3 /*break*/, 38];
+            case 42: return [2 /*return*/];
         }
     });
 }); })();
 function api(fn, body) {
     if (body === void 0) { body = ''; }
     return __awaiter(this, void 0, void 0, function () {
-        var headers, data, e_4;
+        var headers, data, e_4, data, e_5;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -207,24 +242,28 @@ function api(fn, body) {
                         'Authorization': "Bearer " + bearer,
                         'Referer': 'https://ddsj-dz.isvjcloud.com/dd-world/'
                     };
-                    data = {};
                     if (!body) return [3 /*break*/, 5];
                     _a.label = 1;
                 case 1:
                     _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, axios_1["default"].post("https://ddsj-dz.isvjcloud.com/dd-api/" + fn, body, { headers: headers })];
                 case 2:
-                    data = _a.sent();
-                    return [3 /*break*/, 4];
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data];
                 case 3:
                     e_4 = _a.sent();
-                    return [2 /*return*/];
-                case 4: return [3 /*break*/, 7];
-                case 5: return [4 /*yield*/, axios_1["default"].get("https://ddsj-dz.isvjcloud.com/dd-api/" + fn, { headers: headers })];
+                    return [2 /*return*/, e_4.response.data];
+                case 4: return [3 /*break*/, 8];
+                case 5:
+                    _a.trys.push([5, 7, , 8]);
+                    return [4 /*yield*/, axios_1["default"].get("https://ddsj-dz.isvjcloud.com/dd-api/" + fn, { headers: headers })];
                 case 6:
-                    data = _a.sent();
-                    _a.label = 7;
-                case 7: return [2 /*return*/, data.data];
+                    data = (_a.sent()).data;
+                    return [2 /*return*/, data];
+                case 7:
+                    e_5 = _a.sent();
+                    return [2 /*return*/];
+                case 8: return [2 /*return*/];
             }
         });
     });
