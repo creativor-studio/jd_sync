@@ -93,7 +93,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 i = 0;
                 _l.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 38];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 39];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
@@ -126,7 +126,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
             case 5:
                 e_1 = _l.sent();
                 console.log(e_1);
-                return [3 /*break*/, 37];
+                return [3 /*break*/, 38];
             case 6:
                 activityCardInfo = res.data.result.activityCardInfo;
                 if (!(activityCardInfo.divideTimeStatus === 1 && activityCardInfo.divideStatus === 0 && activityCardInfo.cardStatus === 1)) return [3 /*break*/, 9];
@@ -144,13 +144,13 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 res = _l.sent();
                 _l.label = 11;
             case 11:
-                _l.trys.push([11, 33, 34, 35]);
+                _l.trys.push([11, 34, 35, 36]);
                 _c = (e_3 = void 0, __values(res.data.result.taskList || [])), _d = _c.next();
                 _l.label = 12;
             case 12:
-                if (!!_d.done) return [3 /*break*/, 32];
+                if (!!_d.done) return [3 /*break*/, 33];
                 t = _d.value;
-                if (!!t.completionFlag) return [3 /*break*/, 31];
+                if (!!t.completionFlag) return [3 /*break*/, 27];
                 if (!(t.assignmentType === 1)) return [3 /*break*/, 15];
                 return [4 /*yield*/, api('superBrandDoTask', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId, "encryptAssignmentId": t.encryptAssignmentId, "assignmentType": 1, "itemId": t.ext.shoppingActivity[0].itemId, "actionType": 0 })];
             case 13:
@@ -208,119 +208,122 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 if (t.assignmentType === 7) {
                     console.log('开卡  pass');
                 }
-                if (!(t.assignmentName === '邀请好友')) return [3 /*break*/, 31];
+                _l.label = 27;
+            case 27:
+                if (!(t.assignmentName === '邀请好友')) return [3 /*break*/, 32];
+                (0, TS_USER_AGENTS_1.o2s)(t);
                 inviteTaskId = t.encryptAssignmentId;
                 console.log('助力码', t.ext.assistTaskDetail.itemId);
                 shareCodeSelf.push(t.ext.assistTaskDetail.itemId);
                 console.log('收到助力', t.completionCnt, '/', 30);
                 j = 0;
-                _l.label = 27;
-            case 27:
-                if (!(j < t.cardAssistBoxRest)) return [3 /*break*/, 31];
-                return [4 /*yield*/, api('superBrandTaskLottery', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId })];
+                _l.label = 28;
             case 28:
-                res = _l.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
+                if (!(j < t.ext.cardAssistBoxRest)) return [3 /*break*/, 32];
+                return [4 /*yield*/, api('superBrandTaskLottery', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId })];
             case 29:
-                _l.sent();
+                res = _l.sent();
                 console.log('打开盒子', JSON.stringify(res));
-                _l.label = 30;
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(3000)];
             case 30:
-                j++;
-                return [3 /*break*/, 27];
+                _l.sent();
+                _l.label = 31;
             case 31:
+                j++;
+                return [3 /*break*/, 28];
+            case 32:
                 _d = _c.next();
                 return [3 /*break*/, 12];
-            case 32: return [3 /*break*/, 35];
-            case 33:
+            case 33: return [3 /*break*/, 36];
+            case 34:
                 e_3_1 = _l.sent();
                 e_3 = { error: e_3_1 };
-                return [3 /*break*/, 35];
-            case 34:
+                return [3 /*break*/, 36];
+            case 35:
                 try {
                     if (_d && !_d.done && (_h = _c["return"])) _h.call(_c);
                 }
                 finally { if (e_3) throw e_3.error; }
                 return [7 /*endfinally*/];
-            case 35: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 36:
-                _l.sent();
-                _l.label = 37;
+            case 36: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 37:
+                _l.sent();
+                _l.label = 38;
+            case 38:
                 i++;
                 return [3 /*break*/, 2];
-            case 38:
-                if (!message) return [3 /*break*/, 40];
-                return [4 /*yield*/, sendNotify("特物瓜分", message)];
             case 39:
-                _l.sent();
-                _l.label = 40;
+                if (!message) return [3 /*break*/, 41];
+                return [4 /*yield*/, sendNotify("特物瓜分", message)];
             case 40:
-                console.log('内部助力', shareCodeSelf);
-                if (!(shareCodeHW.length === 0)) return [3 /*break*/, 42];
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('tw')];
+                _l.sent();
+                _l.label = 41;
             case 41:
-                shareCodeHW = _l.sent();
-                _l.label = 42;
+                console.log('内部助力', shareCodeSelf);
+                if (!(shareCodeHW.length === 0)) return [3 /*break*/, 43];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.getshareCodeHW)('tw')];
             case 42:
-                shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodeHW), false)));
-                i = 0;
+                shareCodeHW = _l.sent();
                 _l.label = 43;
             case 43:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 58];
-                cookie = cookiesArr[i];
-                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
+                shareCode = Array.from(new Set(__spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodeHW), false)));
+                i = 0;
                 _l.label = 44;
             case 44:
-                _l.trys.push([44, 55, 56, 57]);
-                shareCode_1 = (e_4 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 59];
+                cookie = cookiesArr[i];
+                UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 _l.label = 45;
             case 45:
-                if (!!shareCode_1_1.done) return [3 /*break*/, 54];
+                _l.trys.push([45, 56, 57, 58]);
+                shareCode_1 = (e_4 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
+                _l.label = 46;
+            case 46:
+                if (!!shareCode_1_1.done) return [3 /*break*/, 55];
                 code = shareCode_1_1.value;
                 console.log("\u8D26\u53F7 " + UserName + " \u53BB\u52A9\u529B " + code);
                 return [4 /*yield*/, api('superBrandDoTask', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId, "encryptAssignmentId": inviteTaskId, "assignmentType": 2, "itemId": code, "actionType": 0 })];
-            case 46:
-                res = _l.sent();
-                if (!(res.data.bizCode === '0')) return [3 /*break*/, 47];
-                console.log('成功');
-                return [3 /*break*/, 51];
             case 47:
-                if (!(res.data.bizCode === '104')) return [3 /*break*/, 48];
-                console.log('已助力过');
-                return [3 /*break*/, 51];
+                res = _l.sent();
+                if (!(res.data.bizCode === '0')) return [3 /*break*/, 48];
+                console.log('成功');
+                return [3 /*break*/, 52];
             case 48:
-                if (!(res.data.bizCode === '109')) return [3 /*break*/, 49];
-                console.log('不能自己给自己助力');
-                return [3 /*break*/, 51];
+                if (!(res.data.bizCode === '104')) return [3 /*break*/, 49];
+                console.log('已助力过');
+                return [3 /*break*/, 52];
             case 49:
+                if (!(res.data.bizCode === '109')) return [3 /*break*/, 50];
+                console.log('不能自己给自己助力');
+                return [3 /*break*/, 52];
+            case 50:
                 console.log('助力失败', res.data.bizMsg);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 50:
+            case 51:
                 _l.sent();
-                _l.label = 51;
-            case 51: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 52:
-                _l.sent();
-                _l.label = 53;
+                _l.label = 52;
+            case 52: return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 53:
+                _l.sent();
+                _l.label = 54;
+            case 54:
                 shareCode_1_1 = shareCode_1.next();
-                return [3 /*break*/, 45];
-            case 54: return [3 /*break*/, 57];
-            case 55:
+                return [3 /*break*/, 46];
+            case 55: return [3 /*break*/, 58];
+            case 56:
                 e_4_1 = _l.sent();
                 e_4 = { error: e_4_1 };
-                return [3 /*break*/, 57];
-            case 56:
+                return [3 /*break*/, 58];
+            case 57:
                 try {
                     if (shareCode_1_1 && !shareCode_1_1.done && (_k = shareCode_1["return"])) _k.call(shareCode_1);
                 }
                 finally { if (e_4) throw e_4.error; }
                 return [7 /*endfinally*/];
-            case 57:
+            case 58:
                 i++;
-                return [3 /*break*/, 43];
-            case 58: return [2 /*return*/];
+                return [3 /*break*/, 44];
+            case 59: return [2 /*return*/];
         }
     });
 }); })();
