@@ -93,7 +93,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
                 i = 0;
                 _h.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 36];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 29];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
@@ -202,85 +202,62 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
             case 27:
                 j++;
                 return [3 /*break*/, 9];
-            case 28: return [4 /*yield*/, qjd('signBeanGroupStageIndex', { "monitor_refer": "", "rnVersion": "3.9", "fp": "-1", "shshshfp": "-1", "shshshfpa": "-1", "referUrl": "-1", "userAgent": "-1", "jda": "-1", "monitor_source": "bean_m_bean_index" })];
-            case 29:
-                // 抢京豆
-                res = _h.sent();
-                if (!!res.data.shareCode) return [3 /*break*/, 33];
-                console.log('抢京豆 init...');
-                return [4 /*yield*/, qjd('signGroupHit', { "activeType": 2 })];
-            case 30:
-                res = _h.sent();
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 31:
-                _h.sent();
-                return [4 /*yield*/, qjd('signBeanGroupStageIndex', { "monitor_refer": "", "rnVersion": "3.9", "fp": "-1", "shshshfp": "-1", "shshshfpa": "-1", "referUrl": "-1", "userAgent": "-1", "jda": "-1", "monitor_source": "bean_m_bean_index" })];
-            case 32:
-                res = _h.sent();
-                _h.label = 33;
-            case 33:
-                console.log('助力码', res.data.shareCode);
-                shareCodeSelf.push({ shareCode: res.data.shareCode, groupCode: res.data.groupCode, activeId: res.data.jklInfo.keyId });
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 34:
-                _h.sent();
-                _h.label = 35;
-            case 35:
+            case 28:
                 i++;
                 return [3 /*break*/, 2];
-            case 36:
+            case 29:
                 console.log('内部助力', shareCodeSelf);
                 i = 0;
-                _h.label = 37;
-            case 37:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 49];
-                if (!(shareCodeHW.length === 0)) return [3 /*break*/, 39];
+                _h.label = 30;
+            case 30:
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 42];
+                if (!(shareCodeHW.length === 0)) return [3 /*break*/, 32];
                 return [4 /*yield*/, getShareCodeHW()];
-            case 38:
+            case 31:
                 _h.sent();
-                _h.label = 39;
-            case 39:
+                _h.label = 32;
+            case 32:
                 shareCode = __spreadArray(__spreadArray([], __read(shareCodeSelf), false), __read(shareCodeHW), false);
                 uuid = randomString(40);
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
-                _h.label = 40;
-            case 40:
-                _h.trys.push([40, 46, 47, 48]);
+                _h.label = 33;
+            case 33:
+                _h.trys.push([33, 39, 40, 41]);
                 shareCode_1 = (e_3 = void 0, __values(shareCode)), shareCode_1_1 = shareCode_1.next();
-                _h.label = 41;
-            case 41:
-                if (!!shareCode_1_1.done) return [3 /*break*/, 45];
+                _h.label = 34;
+            case 34:
+                if (!!shareCode_1_1.done) return [3 /*break*/, 38];
                 code = shareCode_1_1.value;
                 console.log(UserName + " \u53BB\u52A9\u529B " + code.shareCode);
                 return [4 /*yield*/, qjd('signGroupHelp', { "activeType": 2, "groupCode": code.groupCode, "shareCode": code.shareCode, "activeId": code.activeId, "source": "guest" })];
-            case 42:
+            case 35:
                 res = _h.sent();
                 console.log((_g = res.data) === null || _g === void 0 ? void 0 : _g.helpToast);
                 if (res.data.respCode === 'SG209')
-                    return [3 /*break*/, 45];
+                    return [3 /*break*/, 38];
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
-            case 43:
+            case 36:
                 _h.sent();
-                _h.label = 44;
-            case 44:
+                _h.label = 37;
+            case 37:
                 shareCode_1_1 = shareCode_1.next();
-                return [3 /*break*/, 41];
-            case 45: return [3 /*break*/, 48];
-            case 46:
+                return [3 /*break*/, 34];
+            case 38: return [3 /*break*/, 41];
+            case 39:
                 e_3_1 = _h.sent();
                 e_3 = { error: e_3_1 };
-                return [3 /*break*/, 48];
-            case 47:
+                return [3 /*break*/, 41];
+            case 40:
                 try {
                     if (shareCode_1_1 && !shareCode_1_1.done && (_d = shareCode_1["return"])) _d.call(shareCode_1);
                 }
                 finally { if (e_3) throw e_3.error; }
                 return [7 /*endfinally*/];
-            case 48:
+            case 41:
                 i++;
-                return [3 /*break*/, 37];
-            case 49: return [2 /*return*/];
+                return [3 /*break*/, 30];
+            case 42: return [2 /*return*/];
         }
     });
 }); })();
