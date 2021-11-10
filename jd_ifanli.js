@@ -61,7 +61,7 @@ var cookie = '', res = '', UserName, index;
                 i = 0;
                 _d.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 21];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 20];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
@@ -92,18 +92,18 @@ var cookie = '', res = '', UserName, index;
             case 9:
                 if (!!_b.done) return [3 /*break*/, 15];
                 t = _b.value;
-                if (!(t.status !== 2)) return [3 /*break*/, 14];
+                if (!(t.status === 1)) return [3 /*break*/, 14];
                 return [4 /*yield*/, taskApi('saveTaskRecord', { "taskId": t.taskId, "taskType": t.taskType })];
             case 10:
                 res = _d.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.content.uid, res.content.tt + '');
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(t.watchTime * 1000 + 500)];
             case 11:
                 _d.sent();
                 return [4 /*yield*/, taskApi('saveTaskRecord', { "taskId": t.taskId, "taskType": t.taskType, uid: res.content.uid, tt: res.content.tt })];
             case 12:
                 res = _d.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
+                console.log(res.content.msg);
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 13:
                 _d.sent();
@@ -125,11 +125,10 @@ var cookie = '', res = '', UserName, index;
             case 18:
                 j++;
                 return [3 /*break*/, 5];
-            case 19: return [3 /*break*/, 21];
-            case 20:
+            case 19:
                 i++;
                 return [3 /*break*/, 2];
-            case 21: return [2 /*return*/];
+            case 20: return [2 /*return*/];
         }
     });
 }); })();
@@ -161,11 +160,15 @@ function taskApi(fn, body) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1["default"].post("https://ifanli.m.jd.com/rebateapi/task/" + fn, JSON.stringify(body), {
                         headers: {
-                            "Host": "ifanli.m.jd.com",
-                            "User-Agent": TS_USER_AGENTS_1["default"],
-                            "Referer": "https://ifanli.m.jd.com/rebate/earnBean.html?paltform=null",
-                            "Cookie": cookie,
-                            "Content-Type": "application/json;charset=UTF-8"
+                            'authority': 'ifanli.m.jd.com',
+                            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
+                            'content-type': 'application/json;charset=UTF-8',
+                            'accept': 'application/json, text/plain, */*',
+                            'origin': 'https://ifanli.m.jd.com',
+                            'referer': 'https://ifanli.m.jd.com/rebate/earnBean.html?paltform=null',
+                            'accept-language': 'zh-CN,zh;q=0.9',
+                            'cookie': cookie,
+                            'Content-Type': 'application/json; charset=UTF-8'
                         }
                     })];
                 case 1:
