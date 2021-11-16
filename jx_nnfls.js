@@ -141,8 +141,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
                 return [4 /*yield*/, api('task/drawUserTask', 'sceneval,taskid', { taskid: t.taskId })];
             case 7:
                 res = _e.sent();
-                (0, TS_USER_AGENTS_1.o2s)(res);
-                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(t.param7 * 1000 + 1000)];
             case 8:
                 _e.sent();
                 return [4 /*yield*/, api('task/UserTaskFinish', 'sceneval,taskid', { taskid: t.taskId })];

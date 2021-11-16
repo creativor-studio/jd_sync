@@ -100,6 +100,7 @@ var cookie = '', res = '', message = '';
                 if (!!_b.done) return [3 /*break*/, 14];
                 t = _b.value;
                 name_1 = t.name;
+                console.log(name_1);
                 _e.label = 6;
             case 6:
                 _e.trys.push([6, 11, 12, 13]);
