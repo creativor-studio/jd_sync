@@ -218,7 +218,7 @@ process.env.HW_Priority === 'false' ? HW_Priority = false : '';
                 _h.label = 20;
             case 20:
                 _h.trys.push([20, 26, 27, 28]);
-                _a = (e_2 = void 0, __values(res.commontask)), _b = _a.next();
+                _a = (e_2 = void 0, __values(res.commontask || [])), _b = _a.next();
                 _h.label = 21;
             case 21:
                 if (!!_b.done) return [3 /*break*/, 25];
