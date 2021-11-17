@@ -3299,7 +3299,7 @@ function Env(t, e) {
 
   return new class {
     constructor(t, e) {
-      this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e), this.log("", `D83dDd14${this.name}, 开始!`)
+      this.name = t, this.http = new s(this), this.data = null, this.dataFile = "box.dat", this.logs = [], this.isMute = !1, this.isNeedRewrite = !1, this.logSeparator = "\n", this.startTime = (new Date).getTime(), Object.assign(this, e), this.log("", `\D83d\Dd14${this.name}, 开始!`)
     }
 
     isNode() {
@@ -3533,7 +3533,7 @@ function Env(t, e) {
         }
       };
       if (this.isMute || (this.isSurge() || this.isLoon() ? $notification.post(e, s, i, o(r)) : this.isQuanX() && $notify(e, s, i, o(r))), !this.isMuteLog) {
-        let t = ["", "==============D83dDce3系统通知D83dDce3=============="];
+        let t = ["", "==============\D83d\Dce3系统通知\D83d\Dce3=============="];
         t.push(e), s && t.push(s), i && t.push(i), console.log(t.join("\n")), this.logs = this.logs.concat(t)
       }
     }
@@ -3544,7 +3544,7 @@ function Env(t, e) {
 
     logErr(t, e) {
       const s = !this.isSurge() && !this.isQuanX() && !this.isLoon();
-      s ? this.log("", `2757Fe0f${this.name}, 错误!`, t.stack) : this.log("", `2757Fe0f${this.name}, 错误!`, t)
+      s ? this.log("", `\2757\Fe0f${this.name}, 错误!`, t.stack) : this.log("", `\2757\Fe0f${this.name}, 错误!`, t)
     }
 
     wait(t) {
@@ -3553,7 +3553,7 @@ function Env(t, e) {
 
     done(t = {}) {
       const e = (new Date).getTime(), s = (e - this.startTime) / 1e3;
-      this.log("", `D83dDd14${this.name}, 结束! D83dDd5b ${s} 秒`), this.log(), (this.isSurge() || this.isQuanX() || this.isLoon()) && $done(t)
+      this.log("", `\D83d\Dd14${this.name}, 结束! \D83d\Dd5b ${s} 秒`), this.log(), (this.isSurge() || this.isQuanX() || this.isLoon()) && $done(t)
     }
   }(t, e)
 }
