@@ -96,7 +96,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
+                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
                 return [4 /*yield*/, api('sign/UserSignNew', 'sceneval,source', { source: '' })];
             case 3:
                 res = _e.sent();
@@ -219,7 +219,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
             case 29:
                 if (!!shareCode_1_1.done) return [3 /*break*/, 35];
                 code = shareCode_1_1.value;
-                console.log(UserName + " \u53BB\u52A9\u529B " + code);
+                console.log("".concat(UserName, " \u53BB\u52A9\u529B ").concat(code));
                 return [4 /*yield*/, api('sign/helpSign', 'flag,sceneval,token', { flag: 0, token: code })];
             case 30:
                 res = _e.sent();
@@ -263,7 +263,7 @@ function api(fn, stk, params) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = (0, TS_USER_AGENTS_1.h5st)("https://m.jingxi.com/pgcenter/" + fn + "?sceneval=2&_stk=sceneval&_ste=1&_=" + Date.now() + "&sceneval=2", stk, params, 10012);
+                    url = (0, TS_USER_AGENTS_1.h5st)("https://m.jingxi.com/pgcenter/".concat(fn, "?sceneval=2&_stk=sceneval&_ste=1&_=").concat(Date.now(), "&sceneval=2"), stk, params, 10012);
                     return [4 /*yield*/, axios_1["default"].get(url, {
                             headers: {
                                 'Host': 'm.jingxi.com',

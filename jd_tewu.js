@@ -97,7 +97,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
-                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7" + index + "\u3011" + UserName + "\n");
+                console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
                 uuid = (0, TS_USER_AGENTS_1.randomString)(40);
                 _l.label = 3;
             case 3:
@@ -113,7 +113,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 try {
                     for (_a = (e_5 = void 0, __values(res.data.result.activityCardInfo.cardPackList)), _b = _a.next(); !_b.done; _b = _a.next()) {
                         card = _b.value;
-                        console.log("card-" + card.cardType, card.num, card.num === 0 ? "!!!" : "");
+                        console.log("card-".concat(card.cardType), card.num, card.num === 0 ? "!!!" : "");
                     }
                 }
                 catch (e_5_1) { e_5 = { error: e_5_1 }; }
@@ -135,7 +135,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
             case 7:
                 res = _l.sent();
                 console.log('瓜分', res.data.result.rewards[0].beanNum);
-                message += "\u8D26\u53F7" + index + "  " + UserName + "\n" + res.data.result.rewards[0].beanNum + "\n\n";
+                message += "\u8D26\u53F7".concat(index, "  ").concat(UserName, "\n").concat(res.data.result.rewards[0].beanNum, "\n\n");
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
             case 8:
                 _l.sent();
@@ -183,7 +183,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
                 if (!!_f.done) return [3 /*break*/, 23];
                 sign2 = _f.value;
                 console.log(sign2.beginTime, sign2.status);
-                beginClock = new Date("2021-01-01 " + sign2.beginTime).getHours();
+                beginClock = new Date("2021-01-01 ".concat(sign2.beginTime)).getHours();
                 if (!(new Date().getHours() === beginClock && sign2.status === 1)) return [3 /*break*/, 22];
                 console.log('开始下拉任务');
                 return [4 /*yield*/, api('superBrandDoTask', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId, "encryptAssignmentId": t.encryptAssignmentId, "assignmentType": 5, "itemId": sign2.itemId, "actionType": 0, "dropDownChannel": 1 })];
@@ -283,7 +283,7 @@ var message = '', sendNotify = require('./sendNotify').sendNotify;
             case 46:
                 if (!!shareCode_1_1.done) return [3 /*break*/, 55];
                 code = shareCode_1_1.value;
-                console.log("\u8D26\u53F7 " + UserName + " \u53BB\u52A9\u529B " + code);
+                console.log("\u8D26\u53F7 ".concat(UserName, " \u53BB\u52A9\u529B ").concat(code));
                 return [4 /*yield*/, api('superBrandDoTask', { "source": "card", "activityId": activityId, "encryptProjectId": encryptProjectId, "encryptAssignmentId": inviteTaskId, "assignmentType": 2, "itemId": code, "actionType": 0 })];
             case 47:
                 res = _l.sent();
@@ -336,7 +336,7 @@ function api(fn, body) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/?uuid=" + uuid + "&client=wh5&appid=ProductZ4Brand&functionId=" + fn + "&t=" + Date.now() + "&body=" + encodeURIComponent(JSON.stringify(body)), '', {
+                    return [4 /*yield*/, axios_1["default"].post("https://api.m.jd.com/?uuid=".concat(uuid, "&client=wh5&appid=ProductZ4Brand&functionId=").concat(fn, "&t=").concat(Date.now(), "&body=").concat(encodeURIComponent(JSON.stringify(body))), '', {
                             headers: {
                                 'Host': 'api.m.jd.com',
                                 'Origin': 'https://prodev.m.jd.com',
