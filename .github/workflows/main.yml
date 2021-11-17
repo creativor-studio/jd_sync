@@ -51,6 +51,7 @@ jobs:
         rm -rf ./JDHelloWorld
         echo "========= 开始删除某些任务 ========="
         sed -i '/jd_beauty\|jd_crazy_joy\|jd_crazy_joy_bonus\|jd_daily_egg\|jd_daily_lottery\|jd_jxg\|jd_jxnc\|jd_small_home\|jd_speed\|jd_speed_redpocke\|jd_moneyTree\|jd_kd/d' ./docker/crontab_list.sh
+        sed -i 's/📣/\ud83d\udce3/g;s/❗️/\u2757\ufe0f/g;s/🔔/\ud83d\udd14/g;s/🕛/\ud83d\udd5b/g' *.js
     - name: 'Commit Files'
       id: commit
       run: |
