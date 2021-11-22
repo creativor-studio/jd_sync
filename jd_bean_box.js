@@ -219,6 +219,7 @@ var shareCodeSelf = [], shareCode = [], shareCodeHW = [];
                 res = _h.sent();
                 _h.label = 33;
             case 33:
+                if (!res.data.shareCode) return [3 /*break*/, 35];
                 console.log('助力码', res.data.shareCode);
                 shareCodeSelf.push({ shareCode: res.data.shareCode, groupCode: res.data.groupCode, activeId: res.data.jklInfo.keyId });
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];

@@ -98,7 +98,7 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
                 cookiesArr = _q.sent();
                 if (process.argv[2]) {
                     console.log('收到命令行cookie');
-                    cookiesArr = [unescape(process.argv[2])];
+                    cookiesArr = [decodeURIComponent(process.argv[2])];
                 }
                 except = (0, TS_USER_AGENTS_1.exceptCookie)(path.basename(__filename));
                 i = 0;
@@ -493,7 +493,7 @@ var shareCodesHbSelf = [], shareCodesHbHw = [], shareCodesSelf = [], shareCodesH
             case 99:
                 res = _q.sent();
                 if (!(res.ret === 0)) return [3 /*break*/, 100];
-                console.log('剩余草:', res.data.newnum);
+                console.log('喂食:', res.data.newnum);
                 return [3 /*break*/, 104];
             case 100:
                 if (!(res.ret === 2020)) return [3 /*break*/, 103];
@@ -804,7 +804,7 @@ function api(fn, stk, params, temporary) {
                             url = (0, TS_USER_AGENTS_1.h5st)("https://m.jingxi.com/newtasksys/newtasksys_front/".concat(fn, "?_=").concat(Date.now(), "&source=jxmc&bizCode=jxmc&_stk=").concat(encodeURIComponent(stk), "&_ste=1&sceneval=2&g_login_type=1&callback=jsonpCBK").concat(String.fromCharCode(Math.floor(Math.random() * 26) + "A".charCodeAt(0)), "&g_ty=ls"), stk, params, 10028);
                     }
                     else {
-                        url = (0, TS_USER_AGENTS_1.h5st)("https://m.jingxi.com/jxmc/".concat(fn, "?channel=7&sceneid=1001&activeid=jxmc_active_0001&activekey=null&jxmc_jstoken=").concat(jxToken['farm_jstoken'], "&timestamp=").concat(jxToken['timestamp'], "&phoneid=").concat(jxToken['phoneid'], "&_stk=").concat(encodeURIComponent(stk), "&_ste=1&_=").concat(Date.now(), "&sceneval=2&g_login_type=1&callback=jsonpCBK").concat(String.fromCharCode(Math.floor(Math.random() * 26) + "A".charCodeAt(0)), "&g_ty=ls"), stk, params, 10028);
+                        url = (0, TS_USER_AGENTS_1.h5st)("https://m.jingxi.com/jxmc/".concat(fn, "?channel=7&sceneid=1001&activeid=jxmc_active_0001&activekey=null&jxmc_jstoken=").concat(jxToken['farm_jstoken'], "&timestamp=").concat(jxToken['timestamp'], "&phoneid=").concat(jxToken['phoneid'], "&_stk=").concat(encodeURIComponent(stk), "&_ste=1&_=").concat(Date.now(), "&sceneval=2"), stk, params, 10028);
                     }
                     _a.label = 1;
                 case 1:
@@ -812,7 +812,7 @@ function api(fn, stk, params, temporary) {
                     return [4 /*yield*/, axios_1["default"].get(url, {
                             headers: {
                                 'Host': 'm.jingxi.com',
-                                'User-Agent': "jdpingou;iPhone;5.9.0;12.4.1;".concat((0, TS_USER_AGENTS_1.randomString)(40), ";network/wifi;"),
+                                'User-Agent': "jdpingou;",
                                 'Referer': 'https://st.jingxi.com/pingou/jxmc/index.html',
                                 'Cookie': cookie
                             }
