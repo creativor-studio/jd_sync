@@ -92,7 +92,7 @@ var cookie = '', res = '', UserName, index;
             case 9:
                 if (!!_b.done) return [3 /*break*/, 15];
                 t = _b.value;
-                if (!(t.status === 1)) return [3 /*break*/, 14];
+                if (!(t.statusName !== '活动结束')) return [3 /*break*/, 14];
                 return [4 /*yield*/, taskApi('saveTaskRecord', { taskId: t.taskId, taskType: t.taskType, businessId: t.businessId })];
             case 10:
                 res = _d.sent();
