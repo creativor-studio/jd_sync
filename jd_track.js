@@ -59,7 +59,7 @@ var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var child_process_1 = require("child_process");
 var cookie = '', UserName, index, allMessage = '', res = '', message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, except, orders, i, _a, _b, order, orderId, title, t, status_1, account, account_1, account_1_1, acc;
+    var cookiesArr, except, orders, i, _a, _b, order, orderId, orderType, title, t, status_1, carrier, carriageId, e_1_1, account, account_1, account_1_1, acc;
     var e_1, _c, e_2, _d;
     var _e, _f;
     return __generator(this, function (_g) {
@@ -78,63 +78,85 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                 i = 0;
                 _g.label = 2;
             case 2:
-                if (!(i < cookiesArr.length)) return [3 /*break*/, 6];
+                if (!(i < cookiesArr.length)) return [3 /*break*/, 15];
                 cookie = cookiesArr[i];
                 UserName = decodeURIComponent(cookie.match(/pt_pin=([^;]*)/)[1]);
                 index = i + 1;
                 console.log("\n\u5F00\u59CB\u3010\u4EAC\u4E1C\u8D26\u53F7".concat(index, "\u3011").concat(UserName, "\n"));
                 if (except.includes(encodeURIComponent(UserName))) {
                     console.log('已设置跳过');
-                    return [3 /*break*/, 5];
+                    return [3 /*break*/, 14];
                 }
                 message = '';
                 return [4 /*yield*/, getOrderList()];
             case 3:
                 res = _g.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(2000)];
+            case 4:
+                _g.sent();
+                _g.label = 5;
+            case 5:
+                _g.trys.push([5, 10, 11, 12]);
+                _a = (e_1 = void 0, __values(res.orderList)), _b = _a.next();
+                _g.label = 6;
+            case 6:
+                if (!!_b.done) return [3 /*break*/, 9];
+                order = _b.value;
+                orderId = order.orderId;
+                orderType = order.orderType;
+                title = order.productList[0].title;
+                t = ((_e = order.progressInfo) === null || _e === void 0 ? void 0 : _e.tip) || null;
+                status_1 = ((_f = order.progressInfo) === null || _f === void 0 ? void 0 : _f.content) || null;
+                return [4 /*yield*/, getWuliu(orderId, orderType)];
+            case 7:
+                res = _g.sent();
+                carrier = res.carrier, carriageId = res.carriageId;
+                if (t && status_1) {
+                    if (status_1.match(/(?=签收|已取走|已暂存)/))
+                        return [3 /*break*/, 8];
+                    console.log(title);
+                    console.log('\t', t, status_1);
+                    console.log();
+                    if (Object.keys(orders).indexOf(orderId) > -1 && orders[orderId]['status'] !== status_1) {
+                        message += "".concat(title, "\n").concat(carrier, "  ").concat(carriageId, "\n").concat(t, "  ").concat(status_1, "\n\n");
+                    }
+                    orders[orderId] = {
+                        user: UserName,
+                        title: title,
+                        t: t,
+                        status: status_1,
+                        carrier: carrier,
+                        carriageId: carriageId
+                    };
+                }
+                _g.label = 8;
+            case 8:
+                _b = _a.next();
+                return [3 /*break*/, 6];
+            case 9: return [3 /*break*/, 12];
+            case 10:
+                e_1_1 = _g.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 12];
+            case 11:
                 try {
-                    for (_a = (e_1 = void 0, __values(res.orderList)), _b = _a.next(); !_b.done; _b = _a.next()) {
-                        order = _b.value;
-                        orderId = order['orderId'];
-                        title = order['productList'][0]['title'];
-                        t = ((_e = order.progressInfo) === null || _e === void 0 ? void 0 : _e.tip) || null;
-                        status_1 = ((_f = order.progressInfo) === null || _f === void 0 ? void 0 : _f.content) || null;
-                        if (t && status_1) {
-                            if (status_1.match(/(?=签收|已取走|已暂存)/))
-                                continue;
-                            console.log(title);
-                            console.log('\t', t, status_1);
-                            console.log();
-                            if (Object.keys(orders).indexOf(orderId) > -1 && orders[orderId]['status'] !== status_1) {
-                                message += "".concat(title, "\n").concat(t, "  ").concat(status_1, "\n\n");
-                            }
-                            orders[orderId] = {
-                                user: UserName,
-                                title: title,
-                                t: t,
-                                status: status_1
-                            };
-                        }
-                    }
+                    if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
                 }
-                catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                finally {
-                    try {
-                        if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
-                    }
-                    finally { if (e_1) throw e_1.error; }
-                }
+                finally { if (e_1) throw e_1.error; }
+                return [7 /*endfinally*/];
+            case 12:
                 if (message) {
                     message = "<\u4EAC\u4E1C\u8D26\u53F7".concat(i + 1, ">  ").concat(UserName, "\n\n").concat(message);
                     allMessage += message;
                 }
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
-            case 4:
+            case 13:
                 _g.sent();
-                _g.label = 5;
-            case 5:
+                _g.label = 14;
+            case 14:
                 i++;
                 return [3 /*break*/, 2];
-            case 6:
+            case 15:
                 orders = JSON.stringify(orders, null, 2);
                 account = JSON.parse((0, fs_1.readFileSync)('./utils/account.json').toString() || '[]') || [];
                 try {
@@ -151,12 +173,12 @@ var cookie = '', UserName, index, allMessage = '', res = '', message = '';
                     finally { if (e_2) throw e_2.error; }
                 }
                 (0, fs_1.writeFileSync)('./json/jd_track.json', orders);
-                if (!allMessage) return [3 /*break*/, 8];
+                if (!allMessage) return [3 /*break*/, 17];
                 return [4 /*yield*/, (0, notify.sendNotify)('京东快递更新', allMessage)];
-            case 7:
+            case 16:
                 _g.sent();
-                _g.label = 8;
-            case 8: return [2 /*return*/];
+                _g.label = 17;
+            case 17: return [2 /*return*/];
         }
     });
 }); })();
@@ -177,6 +199,29 @@ function getOrderList() {
                         })];
                 case 1:
                     data = (_a.sent()).data;
+                    return [2 /*return*/, data];
+            }
+        });
+    });
+}
+function getWuliu(orderId, orderType) {
+    return __awaiter(this, void 0, void 0, function () {
+        var data;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1["default"].get("https://wq.jd.com/bases/wuliudetail/dealloglist?deal_id=".concat(orderId, "&orderstate=15&ordertype=").concat(orderType, "&t=").concat(Date.now(), "&sceneval=2"), {
+                        headers: {
+                            'authority': 'wq.jd.com',
+                            'user-agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1',
+                            'referer': 'https://wqs.jd.com/',
+                            'cookie': cookie
+                        }
+                    })];
+                case 1:
+                    data = (_a.sent()).data;
+                    return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
+                case 2:
+                    _a.sent();
                     return [2 /*return*/, data];
             }
         });

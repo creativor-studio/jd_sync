@@ -56,7 +56,7 @@ var TS_USER_AGENTS_1 = require("./TS_USER_AGENTS");
 var notify = require("./sendNotify");
 var cookie = '', res = '', message = '';
 !(function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cookiesArr, keywords, _a, _b, t, name_1, keywords_1, keywords_1_1, keyword, e_1_1, e_2_1;
+    var cookiesArr, keywords, _a, _b, t, name_1, commodityId, desp, keywords_1, keywords_1_1, keyword, e_1_1, e_2_1;
     var e_2, _c, e_1, _d;
     return __generator(this, function (_e) {
         switch (_e.label) {
@@ -66,7 +66,7 @@ var cookie = '', res = '', message = '';
                 return [4 /*yield*/, (0, TS_USER_AGENTS_1.requireConfig)()];
             case 2:
                 cookiesArr = _e.sent();
-                cookie = cookiesArr[0];
+                cookie = cookiesArr[Math.floor(Math.random() * cookiesArr.length)];
                 return [4 /*yield*/, api()];
             case 3:
                 /*
@@ -90,76 +90,102 @@ var cookie = '', res = '', message = '';
                 }
                  */
                 res = _e.sent();
-                keywords = ['KFC', 'kfc', '肯德基', '沃尔玛'];
-                _e.label = 4;
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 4:
-                _e.trys.push([4, 15, 16, 17]);
-                _a = __values(res.data.commodityList), _b = _a.next();
+                _e.sent();
+                keywords = ['KFC', 'kfc', '肯德基', '沃尔玛'];
                 _e.label = 5;
             case 5:
-                if (!!_b.done) return [3 /*break*/, 14];
-                t = _b.value;
-                name_1 = t.name;
-                console.log(name_1);
+                _e.trys.push([5, 18, 19, 20]);
+                _a = __values(res.data.commodityList), _b = _a.next();
                 _e.label = 6;
             case 6:
-                _e.trys.push([6, 11, 12, 13]);
-                keywords_1 = (e_1 = void 0, __values(keywords)), keywords_1_1 = keywords_1.next();
-                _e.label = 7;
+                if (!!_b.done) return [3 /*break*/, 17];
+                t = _b.value;
+                name_1 = t.name, commodityId = t.commodityId;
+                return [4 /*yield*/, api(commodityId)];
             case 7:
-                if (!!keywords_1_1.done) return [3 /*break*/, 10];
-                keyword = keywords_1_1.value;
-                if (!(name_1.indexOf(keyword) > -1)) return [3 /*break*/, 9];
-                return [4 /*yield*/, (0, notify.sendNotify)("京喜工厂", name_1)];
+                res = _e.sent();
+                return [4 /*yield*/, (0, TS_USER_AGENTS_1.wait)(1000)];
             case 8:
                 _e.sent();
-                return [3 /*break*/, 10];
+                desp = res.data.commodityList[0].description;
+                if (desp.indexOf('红包') > -1) {
+                    desp = desp.match(/奖励以(.*)发放/)[1];
+                    message += "".concat(name_1, " ").concat(desp, "\n");
+                }
+                else if (desp.indexOf('支付') > -1) {
+                    desp = desp.match(/完成需(.*元)/)[1];
+                }
+                else {
+                    (0, TS_USER_AGENTS_1.o2s)(res);
+                }
+                console.log(name_1, desp);
+                _e.label = 9;
             case 9:
-                keywords_1_1 = keywords_1.next();
-                return [3 /*break*/, 7];
-            case 10: return [3 /*break*/, 13];
+                _e.trys.push([9, 14, 15, 16]);
+                keywords_1 = (e_1 = void 0, __values(keywords)), keywords_1_1 = keywords_1.next();
+                _e.label = 10;
+            case 10:
+                if (!!keywords_1_1.done) return [3 /*break*/, 13];
+                keyword = keywords_1_1.value;
+                if (!(name_1.indexOf(keyword) > -1)) return [3 /*break*/, 12];
+                return [4 /*yield*/, (0, notify.sendNotify)("京喜工厂", name_1)];
             case 11:
-                e_1_1 = _e.sent();
-                e_1 = { error: e_1_1 };
+                _e.sent();
                 return [3 /*break*/, 13];
             case 12:
+                keywords_1_1 = keywords_1.next();
+                return [3 /*break*/, 10];
+            case 13: return [3 /*break*/, 16];
+            case 14:
+                e_1_1 = _e.sent();
+                e_1 = { error: e_1_1 };
+                return [3 /*break*/, 16];
+            case 15:
                 try {
                     if (keywords_1_1 && !keywords_1_1.done && (_d = keywords_1["return"])) _d.call(keywords_1);
                 }
                 finally { if (e_1) throw e_1.error; }
                 return [7 /*endfinally*/];
-            case 13:
+            case 16:
                 _b = _a.next();
-                return [3 /*break*/, 5];
-            case 14: return [3 /*break*/, 17];
-            case 15:
+                return [3 /*break*/, 6];
+            case 17: return [3 /*break*/, 20];
+            case 18:
                 e_2_1 = _e.sent();
                 e_2 = { error: e_2_1 };
-                return [3 /*break*/, 17];
-            case 16:
+                return [3 /*break*/, 20];
+            case 19:
                 try {
                     if (_b && !_b.done && (_c = _a["return"])) _c.call(_a);
                 }
                 finally { if (e_2) throw e_2.error; }
                 return [7 /*endfinally*/];
-            case 17: return [2 /*return*/];
+            case 20:
+                if (message) {
+                    (0, notify.sendNotify)('京喜工厂送红包', message);
+                }
+                return [2 /*return*/];
         }
     });
 }); })();
-function api() {
+function api(commodityId) {
     return __awaiter(this, void 0, void 0, function () {
-        var url, data;
+        var t, url, data;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    url = (0, TS_USER_AGENTS_1.h5st)("https://wq.jd.com/dreamfactory/diminfo/GetCommodityList?zone=dream_factory&flag=2&pageNo=1&pageSize=12&_time=".concat(Date.now(), "&_stk=_time%2Cflag%2CpageNo%2CpageSize%2Czone&_ste=1&_=").concat(Date.now(), "&sceneval=2"), '_time,flag,pageNo,pageSize,zone', {}, 10001);
+                    t = Date.now();
+                    url = commodityId
+                        ? "https://m.jingxi.com/dreamfactory/diminfo/GetCommodityDetails?zone=dream_factory&commodityId=".concat(commodityId, "&_time=").concat(t, "&_ts=").concat(t, "&_=").concat(t, "&sceneval=2")
+                        : "https://m.jingxi.com/dreamfactory/diminfo/GetCommodityList?zone=dream_factory&flag=2&pageNo=1&pageSize=12&_time=".concat(t, "&_ts=").concat(t, "&_=").concat(t, "&sceneval=2");
                     return [4 /*yield*/, axios_1["default"].get(url, {
                             headers: {
-                                'Host': 'wq.jd.com',
-                                "User-Agent": TS_USER_AGENTS_1["default"],
-                                'accept-language': 'zh-cn',
-                                'referer': 'https://wqsd.jd.com/pingou/dream_factory/index.html',
-                                'cookie': cookie
+                                'Host': 'm.jingxi.com',
+                                'User-Agent': 'jdpingou;',
+                                'Referer': 'https://st.jingxi.com/',
+                                'Cookie': cookie
                             }
                         })];
                 case 1:
